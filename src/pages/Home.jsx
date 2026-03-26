@@ -3,234 +3,6 @@ import { Link } from "react-router-dom";
 export default function Home() {
   return (
     <div className="doc">
-      {/* FOTO (usa el estilo .media que ya tenéis) */}
-      <figure className="media">
-        <img
-          src="/css.png"
-          alt="Portada del Manual CSS @Inma Contreras"
-          width="500"
-          height="320"
-          loading="lazy"
-          decoding="async"
-        />
-        <figcaption>
-          Manual de CSS creado por Inma Contreras (@inmaco) para aprender CSS
-          desde cero
-        </figcaption>
-      </figure>
-{/* HISTORIA Y EVOLUCIÓN DE CSS */}
-<section className="card">
-  <h2>¿Qué es CSS y por qué existe?</h2>
-
-  <p>
-    CSS (<strong>Cascading Style Sheets</strong>) es el lenguaje encargado de
-    definir la <strong>presentación visual</strong> de los documentos HTML:
-    colores, tipografías, espacios, distribución y comportamiento visual en
-    diferentes dispositivos.
-  </p>
-
-  <p>
-    Mientras que HTML describe la <strong>estructura y el significado</strong>
-    del contenido, CSS se encarga de <strong>cómo se ve</strong>. Esta
-    separación no es casual: responde a una necesidad histórica y técnica.
-  </p>
-
-  <div className="callout tip">
-    HTML dice <em>qué es</em> el contenido. CSS decide <em>cómo se muestra</em>.
-  </div>
-</section>
-
-<section className="card">
-  <h2>El origen de CSS: resolver un problema real</h2>
-
-  <p>
-    En los primeros años de la web (principios de los 90), el diseño se hacía
-    directamente en HTML: etiquetas como <code>&lt;font&gt;</code>,
-    <code>&lt;center&gt;</code> o atributos como <code>bgcolor</code> mezclaban
-    contenido y presentación.
-  </p>
-
-  <p>
-    El resultado era un código difícil de mantener, poco accesible y
-    prácticamente imposible de reutilizar. Cada cambio visual obligaba a
-    modificar decenas de páginas.
-  </p>
-
-  <p>
-    En 1996, el W3C publica la primera especificación de CSS con un objetivo
-    claro:
-  </p>
-
-  <ul>
-    <li>Separar estructura y presentación</li>
-    <li>Facilitar el mantenimiento de los sitios web</li>
-    <li>Permitir estilos reutilizables</li>
-    <li>Dar control visual sin romper el HTML</li>
-  </ul>
-
-  <div className="callout">
-    CSS no surge para “hacer cosas bonitas”, sino para hacer la web sostenible
-    a largo plazo.
-  </div>
-</section>
-
-<section className="card">
-  <h2>La evolución de CSS: de lo básico a sistemas de diseño</h2>
-
-  <p>
-    CSS ha evolucionado durante décadas. No es un lenguaje estático, sino un
-    sistema vivo que se adapta a nuevas necesidades: dispositivos móviles,
-    accesibilidad, diseño complejo y rendimiento.
-  </p>
-
-  <details className="dd">
-    <summary>Principales hitos en la evolución de CSS</summary>
-    <div className="dd-body">
-      <ul>
-        <li>
-          <strong>CSS1 (1996)</strong>: colores, fuentes, márgenes básicos.
-        </li>
-        <li>
-          <strong>CSS2 / CSS2.1</strong>: posicionamiento, z-index, media types.
-        </li>
-        <li>
-          <strong>CSS3</strong>: transición a módulos independientes
-          (flexbox, animaciones, gradientes, etc.).
-        </li>
-        <li>
-          <strong>CSS moderno</strong>: Grid, variables, funciones avanzadas,
-          diseño responsivo nativo.
-        </li>
-      </ul>
-
-      <div className="callout tip">
-        CSS ya no se publica como “versiones”, sino como módulos que evolucionan
-        de forma independiente.
-      </div>
-    </div>
-  </details>
-</section>
-
-<section className="card">
-  <h2>¿Por qué surge SASS?</h2>
-
-  <p>
-    A medida que los proyectos crecían, CSS empezó a mostrar ciertas
-    limitaciones prácticas: repetición de valores, archivos largos, dificultad
-    para organizar el código y ausencia de lógica.
-  </p>
-
-  <p>
-    Para resolver estos problemas aparece <strong>SASS</strong>, un
-    preprocesador de CSS que añade características que el CSS original no
-    tenía.
-  </p>
-
-  <details className="dd">
-    <summary>Qué aporta SASS frente a CSS tradicional</summary>
-    <div className="dd-body">
-      <ul>
-        <li>Variables reutilizables</li>
-        <li>Anidamiento de selectores</li>
-        <li>Funciones y mixins</li>
-        <li>División de archivos (partials)</li>
-        <li>Mejor organización del código</li>
-      </ul>
-
-      <div className="callout">
-        Durante años, SASS cubrió carencias importantes del CSS estándar.
-      </div>
-    </div>
-  </details>
-
-  <div className="callout warn">
-    SASS no sustituye a CSS: lo amplía. El navegador nunca interpreta SASS,
-    solo CSS compilado.
-  </div>
-</section>
-
-<section className="card">
-  <h2>CSS moderno: muchas ideas de SASS ya son nativas</h2>
-
-  <p>
-    En los últimos años, CSS ha incorporado de forma nativa muchas de las
-    características que hicieron popular a SASS.
-  </p>
-
-  <details className="dd">
-    <summary>Avances clave del CSS actual</summary>
-    <div className="dd-body">
-      <ul>
-        <li>Variables CSS (<code>--custom-properties</code>)</li>
-        <li>
-          Layouts complejos con <strong>Flexbox</strong> y{" "}
-          <strong>Grid</strong>
-        </li>
-        <li>Funciones como <code>calc()</code>, <code>clamp()</code></li>
-        <li>Media queries avanzadas</li>
-        <li>Mejor soporte para accesibilidad</li>
-        <li>Animaciones y transiciones optimizadas</li>
-      </ul>
-
-      <div className="callout tip">
-        Hoy se puede hacer CSS potente sin depender siempre de preprocesadores.
-      </div>
-    </div>
-  </details>
-</section>
-
-<section className="card">
-  <h2>Últimas novedades y hacia dónde va CSS</h2>
-
-  <p>
-    CSS sigue evolucionando activamente. Algunas de las novedades más
-    relevantes apuntan a un CSS más inteligente, más modular y más cercano a
-    los sistemas de diseño.
-  </p>
-
-  <details className="dd">
-    <summary>Novedades recientes y en adopción</summary>
-    <div className="dd-body">
-      <ul>
-        <li><strong>Container Queries</strong></li>
-        <li><strong>:has()</strong> (selectores relacionales)</li>
-        <li>Subgrid</li>
-        <li>Funciones de color avanzadas</li>
-        <li>Mejor control tipográfico</li>
-      </ul>
-
-      <div className="callout">
-        CSS ya no es solo “estilos”: es una herramienta de diseño completa.
-      </div>
-    </div>
-  </details>
-</section>
-
-<section className="card">
-  <h2>Ideas claves </h2>
-
-  <p>
-    CSS no es un lenguaje menor ni “solo visual”. Es una pieza central del
-    desarrollo frontend moderno.
-  </p>
-
-  <p>
-    Entender su historia y su evolución te permite:
-  </p>
-
-  <ul>
-    <li>Valorar por qué existen ciertas reglas</li>
-    <li>Usar herramientas como SASS con criterio</li>
-    <li>Aprovechar el CSS moderno sin parches</li>
-    <li>Diseñar con mentalidad profesional</li>
-  </ul>
-
-  <div className="callout tip">
-    Aprender CSS hoy es aprender un sistema maduro, potente y en constante
-    evolución.
-  </div>
-</section>
-
       {/* HERO */}
       <section className="card hero">
         <p className="doc-kicker">Manual CSS · React</p>
@@ -238,8 +10,9 @@ export default function Home() {
         <p className="doc-lead">
           Este manual no va de memorizar propiedades. Va de{" "}
           <strong>entender cómo piensa CSS</strong> para diseñar interfaces
-          claras, accesibles y profesionales.Vamos a intentar que CSS deje de
-          ser frustrante y se convierta en una herramienta poderosa pero para ello hay que entender su lógica.
+          claras, accesibles, mantenibles y profesionales. El objetivo es que
+          CSS deje de parecer arbitrario y empiece a funcionar como un sistema
+          lógico que sabes interpretar, usar y corregir.
         </p>
 
         <div style={{ display: "flex", gap: "1rem", flexWrap: "wrap" }}>
@@ -258,126 +31,721 @@ export default function Home() {
         </div>
       </section>
 
-      {/* INTRO AMPLIA */}
+      {/* FOTO */}
+      <figure className="media">
+        <img
+          src="/css.png"
+          alt="Portada del Manual CSS de Inma Contreras"
+          width="500"
+          height="320"
+          loading="lazy"
+          decoding="async"
+        />
+        <figcaption>
+          Manual de CSS creado por Inma Contreras (@inmaco) para aprender CSS
+          desde cero hasta un nivel técnico sólido.
+        </figcaption>
+      </figure>
+
+      {/* BIENVENIDA */}
       <section className="card">
-        <h2>Bienvenida/o al Manual de CSS (desde cero hasta nivel profesional)</h2>
+        <h2>Bienvenida/o al manual de CSS</h2>
 
         <p>
-          Si estás empezando, es normal que CSS parezca “caprichoso”: a veces
-          algo se mueve sin sentido, otras no se centra, y en cuanto crece una
-          página… aparecen los famosos “parches”.
+          Si estás empezando, es normal que CSS parezca imprevisible: elementos
+          que no se colocan donde esperabas, márgenes que se comportan de forma
+          extraña, alineaciones que “no funcionan” y soluciones improvisadas que
+          terminan convirtiéndose en parches.
         </p>
 
         <p>
-          La buena noticia es que CSS <strong>no es magia</strong>. Es un sistema
-          con reglas claras. Y cuando entiendes su lógica (cascada, herencia,
-          especificidad, flujo del documento y modelos de layout), dejas de
-          “probar cosas” y empiezas a <strong>tomar decisiones</strong>.
+          Sin embargo, CSS no es magia ni un conjunto de trucos sueltos. Es un
+          sistema con reglas. Cuando comprendes conceptos como la{" "}
+          <strong>cascada</strong>, la <strong>herencia</strong>, la{" "}
+          <strong>especificidad</strong>, el <strong>flujo del documento</strong>{" "}
+          y los distintos <strong>modelos de layout</strong>, dejas de probar
+          cosas al azar y empiezas a tomar decisiones con criterio.
         </p>
 
         <div className="callout tip">
           Aquí no vas a memorizar una lista infinita de propiedades: vas a
-          aprender a pensar como CSS para construir interfaces sólidas.
+          aprender a interpretar cómo funciona CSS y a utilizarlo con lógica.
         </div>
 
-        <h3>¿Para quién es este manual?</h3>
-        <ul>
-          <li>
-            Para quien empieza desde cero y quiere una base firme, sin lagunas.
-          </li>
-          <li>
-            Para quien ya “ha tocado CSS” pero siente que le falta orden y
-            criterio.
-          </li>
-          <li>
-            Para quien quiere llegar a un nivel profesional: escribir CSS limpio,
-            mantenible y accesible.
-          </li>
-        </ul>
-
-        <h3>Cómo vamos a aprender</h3>
         <p>
-          Vamos a comenzar por lo más básico (selectores, caja, tipografía y
-          color) y avanzaremos paso a paso hacia lo más potente (layouts con
-          Flexbox y Grid, responsive, variables, arquitectura de CSS, buenas
-          prácticas y patrones reales).
-        </p>
-
-        <p>
-          Cada tema combina <strong>teoría clara</strong> con{" "}
-          <strong>práctica constante</strong>. La idea es que entiendas el porqué
-          de cada decisión, lo pruebes, lo rompas, lo arregles… y lo interiorices.
-        </p>
-
-        <ul>
-          <li>✔️ Explicaciones progresivas (de lo simple a lo complejo)</li>
-          <li>✔️ Ejemplos reales y comentados</li>
-          <li>✔️ Ejercicios guiados para practicar de verdad</li>
-          <li>✔️ Tests para comprobar lo aprendido</li>
-          <li>✔️ Vídeos y recursos para ampliar y reforzar</li>
-        </ul>
-
-        <div className="callout">
-          No buscamos “que funcione”. Buscamos que entiendas{" "}
-          <strong>por qué funciona</strong> y cómo repetirlo en cualquier
-          proyecto.
-        </div>
-
-        <h3>Objetivo final</h3>
-        <p>
-          Al terminar, tendrás una base sólida para maquetar interfaces con
-          confianza, leer y mejorar CSS ajeno, evitar reglas duplicadas, y
-          construir estilos coherentes que escalen cuando el proyecto crece.
-        </p>
-
-       <div className="callout warn">
-  Aviso honesto: CSS no es fácil. A veces se tiene la sensación de que no es
-  importante, que basta con copiar reglas y ver si “funcionan”.  
-  La realidad es otra: CSS se domina con práctica. Y con una buena guía y
-  constancia, deja de ser frustrante y se convierte en una herramienta
-  poderosa.
-</div>
-
-
-        <p>
-          Si estás lista/o para pasar del “CSS me vuelve loca/o” al “sé lo que
-          estoy haciendo”, empieza por el Tema 1 y vamos paso a paso. 💪
+          Este manual está pensado para acompañarte desde una base inicial hasta
+          una visión más profesional del estilo en frontend. No solo aprenderás
+          a aplicar reglas, sino también a leer CSS existente, detectar errores,
+          corregirlos y construir hojas de estilo más limpias y mantenibles.
         </p>
       </section>
 
-      {/* DETAILS 1 */}
+      {/* PARA QUIÉN ES */}
+      <section className="card">
+        <h2>¿Para quién es este manual?</h2>
+
+        <ul>
+          <li>
+            Para quien empieza desde cero y necesita una base clara, ordenada y
+            sin lagunas.
+          </li>
+          <li>
+            Para quien ya ha usado CSS pero siente que todavía trabaja con dudas
+            o por intuición.
+          </li>
+          <li>
+            Para quien quiere llegar a un nivel profesional y escribir estilos
+            con estructura, coherencia y criterio técnico.
+          </li>
+          <li>
+            Para quien necesita entender CSS generado por otras personas o por
+            herramientas de IA y quiere saber revisarlo correctamente.
+          </li>
+        </ul>
+
+        <div className="callout">
+          Este manual no está orientado solo a “hacer que algo se vea bonito”,
+          sino a comprender la lógica visual y estructural de una interfaz web.
+        </div>
+      </section>
+
+      {/* OBJETIVOS */}
+      <section className="card">
+        <h2>Qué vas a aprender</h2>
+
+        <p>
+          A lo largo del manual trabajarás desde los fundamentos hasta aspectos
+          más avanzados del CSS moderno. La progresión está pensada para que
+          cada tema se apoye en el anterior y puedas construir una comprensión
+          sólida, no fragmentada.
+        </p>
+
+        <ul>
+          <li>Entender qué papel cumple CSS dentro del desarrollo web</li>
+          <li>Dominar la sintaxis, los selectores y la cascada</li>
+          <li>Comprender el modelo de caja y el flujo normal del documento</li>
+          <li>Trabajar con tipografía, color, fondos, bordes y espaciado</li>
+          <li>Construir layouts con Flexbox y Grid</li>
+          <li>Aplicar responsive design con criterio</li>
+          <li>Usar variables CSS y funciones modernas</li>
+          <li>Escribir estilos más mantenibles y reutilizables</li>
+          <li>Leer, revisar y corregir CSS generado por IA</li>
+          <li>Desarrollar criterio visual y técnico como profesional frontend</li>
+        </ul>
+
+        <div className="callout tip">
+          El verdadero objetivo no es solo que un ejercicio funcione, sino que
+          entiendas por qué funciona y seas capaz de reproducir esa lógica en
+          otros proyectos.
+        </div>
+      </section>
+
+      {/* METODOLOGÍA */}
+      <section className="card">
+        <h2>Cómo vamos a trabajar</h2>
+
+        <p>
+          El aprendizaje de CSS exige práctica, observación y corrección. Por
+          eso este manual sigue una metodología progresiva: explicar, mostrar,
+          practicar, revisar y consolidar.
+        </p>
+
+        <ul>
+          <li>Explicaciones claras, de lo simple a lo complejo</li>
+          <li>Ejemplos comentados y con intención didáctica</li>
+          <li>Ejercicios guiados para aplicar cada concepto</li>
+          <li>Tests y repasos para consolidar lo aprendido</li>
+          <li>Enfoque técnico orientado a proyectos reales</li>
+        </ul>
+
+        <div className="callout warn">
+          Aviso honesto: CSS no se domina leyendo una vez. Se aprende probando,
+          equivocándose, observando qué ocurre y entendiendo por qué ocurre.
+        </div>
+      </section>
+
+      {/* QUÉ ES CSS */}
+      <section className="card">
+        <h2>¿Qué es CSS y por qué existe?</h2>
+
+        <p>
+          CSS (<strong>Cascading Style Sheets</strong>) es el lenguaje encargado
+          de definir la <strong>presentación visual</strong> de los documentos
+          HTML: colores, tipografías, tamaños, espacios, distribución y
+          comportamiento visual en diferentes pantallas o dispositivos.
+        </p>
+
+        <p>
+          Mientras que HTML describe la <strong>estructura y el significado</strong>{" "}
+          del contenido, CSS define <strong>cómo se representa</strong>. Esa
+          separación entre estructura y presentación es una de las bases del
+          desarrollo web moderno.
+        </p>
+
+        <div className="callout tip">
+          HTML dice qué es el contenido. CSS decide cómo se muestra.
+        </div>
+
+        <p>
+          Esta división permite organizar mejor los proyectos, reutilizar
+          estilos, mantener los sitios con más facilidad y crear interfaces más
+          consistentes.
+        </p>
+      </section>
+
+      {/* ORIGEN */}
+      <section className="card">
+        <h2>El origen de CSS: resolver un problema real</h2>
+
+        <p>
+          En los primeros años de la web, el diseño se hacía directamente en
+          HTML mediante etiquetas y atributos de presentación como{" "}
+          <code>&lt;font&gt;</code>, <code>&lt;center&gt;</code> o{" "}
+          <code>bgcolor</code>. El problema era evidente: el contenido y el
+          aspecto visual estaban mezclados.
+        </p>
+
+        <p>
+          Eso generaba documentos difíciles de mantener, poco reutilizables y
+          con una estructura cada vez más desordenada. Cambiar un color, una
+          fuente o una alineación podía obligar a modificar muchas páginas una a
+          una.
+        </p>
+
+        <p>
+          En 1996, el W3C publica la primera especificación de CSS con varios
+          objetivos fundamentales:
+        </p>
+
+        <ul>
+          <li>Separar contenido y presentación</li>
+          <li>Facilitar el mantenimiento de los sitios web</li>
+          <li>Permitir estilos reutilizables</li>
+          <li>Mejorar la coherencia visual entre páginas</li>
+          <li>Dar control sobre la apariencia sin degradar el HTML</li>
+        </ul>
+
+        <div className="callout">
+          CSS no nace para “decorar” páginas: nace para hacer la web más
+          mantenible, escalable y coherente.
+        </div>
+      </section>
+
+      {/* EVOLUCIÓN */}
+      <section className="card">
+        <h2>La evolución de CSS</h2>
+
+        <p>
+          CSS no es un lenguaje estático. Ha evolucionado de forma continua para
+          responder a nuevas necesidades: diseño adaptable, accesibilidad,
+          componentes complejos, sistemas de diseño y mejores herramientas de
+          maquetación.
+        </p>
+
+        <details className="dd">
+          <summary>Principales hitos en la evolución de CSS</summary>
+          <div className="dd-body">
+            <ul>
+              <li>
+                <strong>CSS1 (1996)</strong>: colores, tipografía, márgenes y
+                estilos básicos.
+              </li>
+              <li>
+                <strong>CSS2 / CSS2.1</strong>: posicionamiento, z-index, media
+                types y un mayor control visual.
+              </li>
+              <li>
+                <strong>CSS3</strong>: el lenguaje empieza a organizarse en
+                módulos independientes como animaciones, bordes redondeados,
+                sombras, gradientes o flexbox.
+              </li>
+              <li>
+                <strong>CSS moderno</strong>: Grid, variables CSS, funciones
+                avanzadas, container queries, mejoras tipográficas y herramientas
+                más potentes para layouts complejos.
+              </li>
+            </ul>
+
+            <div className="callout tip">
+              Hoy CSS ya no evoluciona por grandes “versiones cerradas”, sino por
+              módulos que avanzan de forma independiente.
+            </div>
+          </div>
+        </details>
+      </section>
+
+      {/* SASS */}
+      <section className="card">
+        <h2>¿Por qué surge SASS?</h2>
+
+        <p>
+          A medida que los proyectos crecían, CSS empezó a mostrar ciertas
+          limitaciones prácticas: repetición de valores, archivos extensos,
+          dificultad para organizar el código y ausencia de mecanismos para
+          reutilizar patrones de forma más estructurada.
+        </p>
+
+        <p>
+          Para resolver estas carencias aparece <strong>SASS</strong>, un
+          preprocesador que añade utilidades extra antes de generar el CSS final
+          que sí entiende el navegador.
+        </p>
+
+        <details className="dd">
+          <summary>Qué aporta SASS frente a CSS tradicional</summary>
+          <div className="dd-body">
+            <ul>
+              <li>Variables reutilizables</li>
+              <li>Anidamiento de selectores</li>
+              <li>Mixins y funciones</li>
+              <li>División modular de archivos</li>
+              <li>Mayor organización en proyectos grandes</li>
+            </ul>
+
+            <div className="callout">
+              Durante bastante tiempo, SASS solucionó problemas reales de
+              escalabilidad que CSS todavía no resolvía por sí solo.
+            </div>
+          </div>
+        </details>
+
+        <div className="callout warn">
+          SASS no sustituye a CSS. El navegador no interpreta SASS: interpreta
+          el CSS compilado que se genera a partir de él.
+        </div>
+      </section>
+
+      {/* CSS MODERNO */}
+      <section className="card">
+        <h2>CSS moderno: muchas ideas antes externas ya son nativas</h2>
+
+        <p>
+          En los últimos años, CSS ha incorporado de forma nativa muchas de las
+          ideas que hicieron popular a SASS y a otras herramientas. Esto ha
+          reforzado mucho su capacidad para trabajar sin depender siempre de un
+          preprocesador.
+        </p>
+
+        <details className="dd">
+          <summary>Avances clave del CSS actual</summary>
+          <div className="dd-body">
+            <ul>
+              <li>
+                Variables CSS (<code>--custom-properties</code>)
+              </li>
+              <li>
+                Layouts complejos con <strong>Flexbox</strong> y{" "}
+                <strong>Grid</strong>
+              </li>
+              <li>
+                Funciones como <code>calc()</code>, <code>min()</code>,{" "}
+                <code>max()</code> y <code>clamp()</code>
+              </li>
+              <li>Media queries más expresivas</li>
+              <li>Mejor soporte para accesibilidad y adaptación</li>
+              <li>Animaciones y transiciones más refinadas</li>
+            </ul>
+
+            <div className="callout tip">
+              Hoy se puede construir CSS muy potente con herramientas nativas, si
+              se entiende bien el lenguaje.
+            </div>
+          </div>
+        </details>
+      </section>
+
+      {/* FUTURO */}
+      <section className="card">
+        <h2>Últimas novedades y hacia dónde va CSS</h2>
+
+        <p>
+          CSS continúa evolucionando activamente. La tendencia actual apunta a un
+          lenguaje más contextual, más modular y más cercano a los sistemas de
+          diseño profesionales.
+        </p>
+
+        <details className="dd">
+          <summary>Novedades recientes y en adopción</summary>
+          <div className="dd-body">
+            <ul>
+              <li>
+                <strong>Container Queries</strong>
+              </li>
+              <li>
+                <strong>:has()</strong> como selector relacional
+              </li>
+              <li>
+                <strong>Subgrid</strong>
+              </li>
+              <li>Funciones de color más avanzadas</li>
+              <li>Mejor control tipográfico y de composición</li>
+              <li>Capas de estilos y mayor control de la cascada</li>
+            </ul>
+
+            <div className="callout">
+              CSS ya no es solo una hoja de estilos: es una herramienta madura de
+              diseño, maquetación y organización visual.
+            </div>
+          </div>
+        </details>
+      </section>
+
+      {/* IA */}
+      <section className="card">
+        <h2>¿Puedo usar la IA para generar CSS? Sí, pero con criterio</h2>
+
+        <p>
+          La inteligencia artificial puede ser un apoyo muy útil para generar
+          código, proponer layouts o acelerar tareas repetitivas. Pero no
+          sustituye el criterio técnico del desarrollador.
+        </p>
+
+        <p>
+          La IA no conoce tu proyecto completo, no entiende por sí sola tu
+          sistema de diseño, no toma decisiones de mantenibilidad y no asume la
+          responsabilidad del resultado final.
+        </p>
+
+        <p>
+          Tu papel no consiste en escribir absolutamente todo desde cero, pero
+          tampoco en aceptar sin revisión lo que una herramienta te devuelve. El
+          valor profesional está en <strong>dirigir, evaluar y corregir</strong>.
+        </p>
+
+        <details className="dd">
+          <summary>1. Qué hace realmente la IA cuando genera CSS</summary>
+          <div className="dd-body">
+            <p>
+              La IA trabaja reconociendo patrones y prediciendo código probable
+              a partir de una instrucción. Eso puede producir resultados útiles,
+              pero no garantiza que el código generado sea el mejor para tu caso.
+            </p>
+
+            <ul>
+              <li>No conoce tu arquitectura completa</li>
+              <li>No detecta siempre redundancias reales</li>
+              <li>No optimiza por defecto</li>
+              <li>No entiende automáticamente tus decisiones visuales</li>
+            </ul>
+
+            <div className="callout warn">
+              Copiar y pegar sin comprensión suele generar deuda técnica: el
+              código parece válido, pero después cuesta integrarlo, mantenerlo o
+              depurarlo.
+            </div>
+          </div>
+        </details>
+
+        <details className="dd">
+          <summary>2. Tu rol profesional al usar IA</summary>
+          <div className="dd-body">
+            <p>
+              El desarrollador no desaparece. Cambia de función: define objetivos,
+              redacta instrucciones mejores, valida resultados y toma decisiones
+              técnicas.
+            </p>
+
+            <ul>
+              <li>Defines qué necesitas construir</li>
+              <li>Indicas el comportamiento esperado</li>
+              <li>Revisas el CSS generado</li>
+              <li>Corriges lo que no encaja</li>
+              <li>Integras el resultado en tu proyecto real</li>
+            </ul>
+
+            <div className="callout tip">
+              La IA puede acelerar la ejecución. El criterio sigue siendo tuyo.
+            </div>
+          </div>
+        </details>
+
+        <details className="dd">
+          <summary>3. Cómo pedir CSS correctamente a una IA</summary>
+          <div className="dd-body">
+            <p>
+              La calidad del resultado depende mucho del nivel de precisión de tu
+              prompt. Pedidos vagos suelen devolver código genérico; pedidos
+              específicos producen soluciones más útiles.
+            </p>
+
+            <p>
+              <strong>Ejemplo deficiente:</strong>
+            </p>
+
+            <pre>
+              <code>{`Hazme un layout bonito con CSS`}</code>
+            </pre>
+
+            <p>
+              <strong>Ejemplo mejor planteado:</strong>
+            </p>
+
+            <pre>
+              <code>{`Crea un layout con Flexbox para React:
+- Header fijo arriba
+- Sidebar izquierda de 250px
+- Contenido flexible a la derecha
+- Usa clases claras
+- Evita reglas redundantes
+- No uses selectores excesivamente específicos
+- Mantén el CSS responsive`}</code>
+            </pre>
+
+            <ul>
+              <li>Define la estructura</li>
+              <li>Define el comportamiento esperado</li>
+              <li>Define limitaciones y criterios de calidad</li>
+              <li>Indica el contexto real: React, HTML semántico, responsive, etc.</li>
+            </ul>
+
+            <div className="callout">
+              Cuanto más clara sea la petición, menos tiempo perderás corrigiendo
+              después.
+            </div>
+          </div>
+        </details>
+
+        <details className="dd">
+          <summary>4. Cómo leer y revisar el CSS generado</summary>
+          <div className="dd-body">
+            <p>
+              No deberías utilizar un bloque de CSS si no puedes explicar, al
+              menos de forma básica, qué hace cada regla y por qué está ahí.
+            </p>
+
+            <ul>
+              <li>Identifica el modelo de layout utilizado</li>
+              <li>Comprueba si hay propiedades redundantes</li>
+              <li>Detecta valores rígidos innecesarios</li>
+              <li>Verifica si la regla encaja con tu HTML real</li>
+              <li>Comprueba si el comportamiento responsive tiene sentido</li>
+            </ul>
+
+            <pre>
+              <code>{`.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+}`}</code>
+            </pre>
+
+            <p>
+              Ante un bloque como este, debes preguntarte qué eje principal está
+              usando Flexbox, qué significa centrar en el eje principal y en el
+              eje cruzado, y si realmente ese centrado responde a una necesidad
+              del diseño o es simplemente una solución automática generada sin
+              contexto.
+            </p>
+
+            <div className="callout warn">
+              Si no puedes explicar una regla, todavía no la controlas.
+            </div>
+          </div>
+        </details>
+
+        <details className="dd">
+          <summary>5. Errores típicos al usar IA para CSS</summary>
+          <div className="dd-body">
+            <ul>
+              <li>
+                <strong>CSS duplicado</strong>: varias reglas resuelven el mismo
+                problema de forma innecesaria
+              </li>
+              <li>
+                <strong>Uso excesivo de <code>!important</code></strong>: suele
+                esconder un problema de especificidad o estructura
+              </li>
+              <li>
+                <strong>Selectores demasiado largos</strong>: hacen el código más
+                frágil y menos reutilizable
+              </li>
+              <li>
+                <strong>Valores rígidos</strong>: mucho píxel sin adaptación
+              </li>
+              <li>
+                <strong>Naming inconsistente</strong>: clases poco claras o mal
+                organizadas
+              </li>
+            </ul>
+
+            <div className="callout warn">
+              La IA suele priorizar una respuesta rápida. Tu trabajo consiste en
+              convertir esa respuesta en una solución técnica correcta.
+            </div>
+          </div>
+        </details>
+
+        <details className="dd">
+          <summary>6. Cómo corregir lo que no funciona</summary>
+          <div className="dd-body">
+            <p>
+              Corregir bien implica localizar el problema exacto y aplicar el
+              cambio mínimo necesario. En CSS, muchas veces un ajuste pequeño
+              resuelve un conflicto importante.
+            </p>
+
+            <ul>
+              <li>Usa DevTools para inspeccionar reglas activas</li>
+              <li>Activa y desactiva propiedades para observar efectos</li>
+              <li>Comprueba medidas reales, caja y alineación</li>
+              <li>Analiza si el problema es de layout, tamaño o especificidad</li>
+            </ul>
+
+            <p>
+              <strong>Ejemplo:</strong>
+            </p>
+
+            <pre>
+              <code>{`/* Código demasiado rígido */
+.box {
+  width: 300px;
+}
+
+/* Versión más flexible */
+.box {
+  width: 100%;
+  max-width: 300px;
+}`}</code>
+            </pre>
+
+            <p>
+              El primer bloque funciona en un caso concreto, pero limita la
+              adaptabilidad. El segundo mantiene el límite visual sin romper el
+              comportamiento responsive.
+            </p>
+
+            <div className="callout tip">
+              Corregir no significa rehacerlo todo. Muchas veces significa
+              entender mejor el problema.
+            </div>
+          </div>
+        </details>
+
+        <details className="dd">
+          <summary>7. Flujo profesional de trabajo con IA</summary>
+          <div className="dd-body">
+            <ol>
+              <li>Definir con claridad qué se quiere construir</li>
+              <li>Describirlo con precisión a la herramienta</li>
+              <li>Leer el CSS generado sin darlo por bueno automáticamente</li>
+              <li>Eliminar reglas redundantes o innecesarias</li>
+              <li>Ajustar el resultado a tu contexto real</li>
+              <li>Integrarlo y probarlo en el proyecto</li>
+            </ol>
+
+            <div className="callout">
+              El resultado profesional no nace del primer prompt, sino del
+              proceso de revisión y decisión posterior.
+            </div>
+          </div>
+        </details>
+
+        <details className="dd">
+          <summary>8. Idea clave que debes interiorizar</summary>
+          <div className="dd-body">
+            <p>
+              Saber CSS no consiste en memorizar todas las propiedades, sino en
+              entender cómo se comportan los elementos, cómo funciona la cascada,
+              cómo se estructuran los layouts y cómo se toman decisiones
+              sostenibles dentro de un proyecto.
+            </p>
+
+            <p>
+              La IA puede producir código. La responsabilidad técnica sigue
+              siendo del desarrollador.
+            </p>
+
+            <div className="callout tip">
+              Copiar y pegar te vuelve dependiente. Entender, revisar y corregir
+              te convierte en profesional.
+            </div>
+          </div>
+        </details>
+      </section>
+
+      {/* IDEAS CLAVE */}
+      <section className="card">
+        <h2>Ideas clave para empezar con buen pie</h2>
+
+        <p>
+          CSS no es un lenguaje secundario ni un simple complemento visual. Es
+          una pieza central del desarrollo frontend moderno y una de las bases de
+          la experiencia de usuario.
+        </p>
+
+        <p>Entender su historia, su lógica y su evolución te permitirá:</p>
+
+        <ul>
+          <li>Comprender por qué existen ciertas reglas y comportamientos</li>
+          <li>Usar herramientas como SASS con criterio</li>
+          <li>Aprovechar el CSS moderno sin depender de parches</li>
+          <li>Leer y revisar mejor el código de otros</li>
+          <li>Usar la IA como apoyo sin perder control técnico</li>
+          <li>Diseñar con una mentalidad más profesional y sostenible</li>
+        </ul>
+
+        <div className="callout tip">
+          Aprender CSS hoy es aprender un sistema maduro, potente y en constante
+          evolución.
+        </div>
+      </section>
+
+      {/* DETAILS FINALES */}
       <details className="dd" open>
         <summary>Cómo está organizado cada tema</summary>
         <div className="dd-body">
-          <p>Cada tema sigue siempre la misma estructura:</p>
+          <p>Cada tema del manual seguirá una estructura didáctica estable:</p>
           <ol>
             <li>Explicación clara y progresiva</li>
             <li>Ejemplos comentados</li>
             <li>Ejercicios guiados</li>
-            <li>Test final para comprobar lo aprendido</li>
+            <li>Repaso o test final</li>
           </ol>
 
           <div className="callout">
             Si entiendes el <strong>por qué</strong>, el <strong>cómo</strong>{" "}
-            viene solo.
+            deja de ser confuso.
           </div>
         </div>
       </details>
 
-      {/* DETAILS 2 */}
       <details className="dd">
         <summary>Qué vas a ser capaz de hacer al terminar</summary>
         <div className="dd-body">
           <ul>
-            <li>Diseñar layouts sin depender de copiar código</li>
-            <li>Leer CSS ajeno y entenderlo</li>
-            <li>Evitar “parches” y reglas duplicadas</li>
-            <li>Escribir CSS mantenible y ordenado</li>
+            <li>
+              Diseñar layouts con criterio, sin depender de copiar código sin
+              entenderlo
+            </li>
+            <li>
+              Leer CSS generado por otras personas o por IA y saber exactamente
+              qué hace
+            </li>
+            <li>
+              Pedir a una IA resultados más útiles y mejor formulados
+            </li>
+            <li>
+              Detectar errores, redundancias y malas prácticas en hojas de estilo
+            </li>
+            <li>
+              Corregir y ajustar código hasta que funcione como esperas
+            </li>
+            <li>
+              Escribir CSS más mantenible cuando sea necesario y estructurarlo
+              con mayor claridad
+            </li>
           </ul>
 
+          <div className="callout tip">
+            El objetivo final no es producir muchas líneas de CSS, sino
+            desarrollar criterio técnico: entender, pedir, evaluar y corregir.
+          </div>
+
           <div className="callout warn">
-            Advertencia realista: <br />
-            CSS no se aprende en un día, pero con práctica constante y una buena guía, es posible dominarlo y utilizarlo para crear diseños web profesionales.
+            CSS no se aprende en un día. Pero con práctica constante, ejemplos
+            bien elegidos y una buena guía, se puede dominar y utilizar con
+            seguridad.
           </div>
         </div>
       </details>

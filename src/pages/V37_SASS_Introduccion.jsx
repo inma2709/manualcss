@@ -1,4 +1,5 @@
 import { useEffect, useMemo, useState } from "react";
+import { Link } from "react-router-dom";
 
 // V37 · Introducción práctica a SCSS (Sass)
 // Pensado para alumnado que empieza desde cero con CSS.
@@ -28,16 +29,17 @@ export default function V37_SASS_Introduccion() {
       },
       {
         id: "q2",
-        q: "¿Qué diferencia principal hay entre .scss y .sass?",
+        q: "¿Por qué no puedes usar Sass correctamente sin saber CSS primero?",
         options: [
-          ".sass usa indentación y .scss usa llaves y ; como CSS",
-          "No hay ninguna diferencia",
-          ".scss es para móvil y .sass para escritorio",
-          ".sass funciona sin compilar y .scss no",
+          "Porque Sass solo funciona en proyectos con Node.js instalado",
+          "Porque Sass genera CSS — si no entiendes el resultado, no puedes detectar ni corregir errores",
+          "Porque Sass y CSS son lenguajes completamente distintos",
+          "Porque el navegador puede leer directamente archivos .scss sin compilar",
         ],
-        correct: ".sass usa indentación y .scss usa llaves y ; como CSS",
+        correct:
+          "Porque Sass genera CSS — si no entiendes el resultado, no puedes detectar ni corregir errores",
         why:
-          "Ambas son sintaxis de Sass. En clase usaremos SCSS porque se parece mucho al CSS que ya conoces.",
+          "Sass es un traductor: convierte tu SCSS en CSS. Si no conoces CSS, no puedes saber si el CSS generado es correcto, eficiente o si tiene problemas de especificidad.",
       },
       {
         id: "q3",
@@ -116,26 +118,44 @@ export default function V37_SASS_Introduccion() {
         <h1>SCSS (Sass) para principiantes: una ayuda, no un lío</h1>
 
         <p className="doc-lead">
-          Sass/SCSS es como escribir <strong>CSS con ayudantes</strong>: variables, un
-          poco de anidación y mejores archivos. No necesitas saberlo todo; con un
-          puñado de ideas puedes ganar orden y productividad sin sentirte
-          abrumada.
+          CSS es un lenguaje <strong>moderno y muy potente</strong>: tiene variables
+          nativas, nesting, grid, flexbox y mucho más. Sass no viene a sustituirlo{" "}
+          —{" "}<strong>viene a ayudarte a organizarlo mejor</strong> cuando los
+          proyectos crecen. Por eso en este manual CSS va primero: sin esa base,
+          Sass no tiene sentido.
         </p>
 
         <div className="callout tip">
-          🎯 En esta lección veremos solo lo esencial: qué es un preprocesador,
-          qué diferencia hay entre SASS y SCSS, cómo se compila y tres
-          superpoderes básicos (variables, nesting y ficheros parciales).
+          🎯 Objetivo: entender que Sass se apoya <strong>sobre</strong> CSS (no lo
+          reemplaza), ver qué problemas concretos resuelve y aprender las tres
+          herramientas esenciales: variables, nesting y archivos parciales.
+        </div>
+
+        <div className="callout">
+          <strong>Lo que aprenderás:</strong>
+          <ol style={{ marginBottom: 0 }}>
+            <li>Por qué CSS no es anticuado y Sass no lo reemplaza</li>
+            <li>Por qué sin dominar CSS no puedes usar Sass correctamente</li>
+            <li>Qué aporta Sass (y qué no aporta)</li>
+            <li>Las dos sintaxis: <code>.sass</code> y <code>.scss</code> — cuál usar</li>
+            <li>Cómo se compila SCSS a CSS y qué flujo de trabajo implica</li>
+            <li>Variables con <code>$</code>: nombres, tipos y dónde guardarlas</li>
+            <li>Nesting suave: cuándo usarlo y cuándo evitarlo</li>
+            <li>Un ejemplo completo de principio a fin</li>
+          </ol>
         </div>
 
         <nav className="doc-index" aria-label="Índice de la lección">
           <h2>🧭 Índice</h2>
           <ol>
             <li>
-              <a href="#que-es">1) Qué problema resuelve Sass</a>
+              <a href="#css-base">0) CSS no es antiguo: el orden importa</a>
             </li>
             <li>
-              <a href="#scss-sintaxis">2) SCSS en comparación con CSS (muy poco nuevo)</a>
+              <a href="#que-es">1) Qué problema concreto resuelve Sass (y qué no resuelve)</a>
+            </li>
+            <li>
+              <a href="#scss-sintaxis">2) SCSS vs CSS: se parecen muchísimo</a>
             </li>
             <li>
               <a href="#compilar">3) Cómo se usa: compilar SCSS → CSS</a>
@@ -147,34 +167,327 @@ export default function V37_SASS_Introduccion() {
               <a href="#nesting">5) Nesting suave para componentes</a>
             </li>
             <li>
-              <a href="#ejemplo">6) Mini ejemplo guiado + test</a>
+              <a href="#ejemplo">6) Ejemplo completo: de SCSS a CSS real</a>
+            </li>
+            <li>
+              <a href="#test">7) Test de comprobación</a>
             </li>
           </ol>
         </nav>
       </header>
 
+      {/* ========== 0) CSS NO ES ANTIGUO ========== */}
+      <section className="doc-section" id="css-base">
+        <details className="dd" open>
+          <summary>0) CSS no es antiguo — Sass se construye encima de él</summary>
+          <div className="dd-body">
+            <p>
+              Antes de empezar con Sass hay que desmontar una idea equivocada muy
+              frecuente:{" "}
+              <strong>
+                CSS no es un lenguaje viejo que hay que "superar con Sass"
+              </strong>
+              . Es todo lo contrario.
+            </p>
+
+            <div className="callout tip">
+              CSS en 2025 tiene <strong>variables nativas</strong> (
+              <code>--color-primary</code>), <strong>nesting nativo</strong> (ya
+              soportado en todos los navegadores modernos),{" "}
+              <strong>@layer</strong> para organizar el cascade,{" "}
+              <strong>container queries</strong> para responsive por componente,{" "}
+              <strong>:has()</strong> para selectores de padre... CSS es un
+              lenguaje vivo que evoluciona muy rápido.
+            </div>
+
+            <h3>¿Qué es Sass entonces?</h3>
+            <p>
+              Sass es un <strong>preprocesador</strong>: una herramienta externa
+              que toma tu código (escrito en formato SCSS) y lo{" "}
+              <strong>convierte a CSS normal</strong>. El navegador{" "}
+              <strong>nunca ve SCSS</strong> — solo ve el CSS resultante.
+            </p>
+
+            <pre>
+              <code>{`Tu archivo .scss  →  herramienta Sass  →  archivo .css  →  navegador`}</code>
+            </pre>
+
+            <h3>¿Por qué no puedes usar Sass sin dominar CSS antes?</h3>
+            <p>
+              Porque Sass <strong>no añade layout, no enseña el modelo de
+              caja, no mejora la especificidad ni crea sistemas responsive</strong>.
+              Todo eso sigue siendo CSS puro. Sass es como una impresora: si el
+              texto que le das está mal escrito, la impresora lo imprimirá igual
+              de mal pero en papel bonito.
+            </p>
+
+            <div className="callout warn">
+              💡 Ejemplo real: si no entiendes cómo funciona la{" "}
+              <strong>especificidad</strong> en CSS, usar nesting profundo en
+              SCSS generará selectores con especificidad altísima que romperán
+              tu diseño y serán muy difíciles de depurar. Sass amplifica lo que
+              ya sabes, <strong>para bien o para mal</strong>.
+            </div>
+
+            <div
+              className="table-wrap"
+              role="region"
+              aria-label="CSS solo vs Sass encima"
+              tabIndex={0}
+            >
+              <table className="table">
+                <thead>
+                  <tr>
+                    <th>Lo hace CSS (sin Sass)</th>
+                    <th>Sass añade encima de CSS</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>Flexbox, Grid, posicionamiento</td>
+                    <td>
+                      Variables con lógica (<code>$breakpoint-md</code>)
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>Cascade, herencia, especificidad</td>
+                    <td>Nesting para agrupar un componente visualmente</td>
+                  </tr>
+                  <tr>
+                    <td>Media queries, responsive design</td>
+                    <td>Mixins reutilizables (p.ej. un mixin de media query)</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      Custom properties (<code>--var</code>), animaciones
+                    </td>
+                    <td>
+                      Archivos parciales para dividir el proyecto en módulos
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>Selectores, pseudoclases, pseudoelementos</td>
+                    <td>Bucles y funciones para generar CSS repetitivo</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+
+            <div className="callout">
+              Conclusión: <strong>estudias CSS porque es la base</strong> —
+              lo que ve el navegador, lo que maqueta la página, lo que define
+              cada propiedad visual. Sass es la capa de organización que se
+              pone encima cuando el proyecto es lo suficientemente grande para
+              necesitarla. Sin CSS bien aprendido, Sass no aporta nada útil.
+            </div>
+          </div>
+        </details>
+      </section>
+
       {/* ========== 1) QUÉ PROBLEMA RESUELVE ========== */}
       <section className="doc-section" id="que-es">
         <details className="dd" open>
-          <summary>1) Antes de nada: ¿por qué usar Sass?</summary>
+          <summary>1) ¿Qué problema concreto resuelve Sass (y qué NO resuelve)?</summary>
           <div className="dd-body">
             <p>
-              Cuando un proyecto crece, el CSS empieza a llenarse de <strong>colores
-              repetidos</strong>, tamaños copiados y pegados, archivos largos donde es
-              difícil encontrar nada… Sass aparece para poner un poco de orden.
+              Imagina un proyecto con 30 componentes. Usas el mismo color de
+              marca en 200 líneas de CSS repartidas en 8 archivos. El cliente
+              cambia el color. Sin Sass tienes que editar 200 líneas. Con Sass,
+              cambias <strong>una variable</strong> y se actualiza todo.
             </p>
 
-            <div className="callout">
-              En una frase sencilla: <strong>Sass/SCSS te ayuda a organizar y
-              escribir mejor tu CSS</strong>, pero lo que acaba en el navegador sigue
-              siendo CSS normal.
+            <h3>Sin Sass — proyecto mediano</h3>
+            <pre>
+              <code>{`/* styles.css — todo en un archivo largo */
+.btn         { background: #2563eb; }
+.header      { background: #2563eb; }
+.link:hover  { color: #2563eb; }
+.badge       { border: 2px solid #2563eb; }
+/* ... y otras 196 líneas con #2563eb ... */`}</code>
+            </pre>
+
+            <h3>Con Sass — mismo proyecto</h3>
+            <pre>
+              <code>{`// _variables.scss  ← cambias aquí y listo
+$color-primary: #2563eb;
+
+// _buttons.scss
+.btn { background: $color-primary; }
+
+// _header.scss
+.header { background: $color-primary; }
+
+// _links.scss
+.link:hover { color: $color-primary; }`}</code>
+            </pre>
+
+            <div className="callout tip">
+              Sass resuelve un <strong>problema de organización y
+              mantenimiento</strong>, no un problema de maquetación.{" "}
+              Si tu proyecto es pequeño (una página, pocos componentes), CSS
+              puro puede ser perfectamente suficiente.
+            </div>
+
+            <h3>1.1 "Pero CSS ya tiene variables con <code>--color-primary</code>… ¿qué aporta Sass?</h3>
+            <p>
+              Esta es la pregunta clave. La respuesta corta:{" "}
+              <strong>
+                las variables CSS y las variables Sass son herramientas
+                distintas que conviven
+              </strong>
+              , y Sass añade cosas que CSS nativo no puede hacer.
+            </p>
+
+            <div
+              className="table-wrap"
+              role="region"
+              aria-label="CSS variables vs Sass variables"
+              tabIndex={0}
+            >
+              <table className="table">
+                <thead>
+                  <tr>
+                    <th>Variable CSS nativa (<code>--color</code>)</th>
+                    <th>Variable Sass (<code>$color</code>)</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>El navegador la resuelve en tiempo real</td>
+                    <td>Desaparece al compilar — el navegador nunca la ve</td>
+                  </tr>
+                  <tr>
+                    <td>Se puede cambiar con JavaScript</td>
+                    <td>No se puede cambiar en tiempo de ejecución</td>
+                  </tr>
+                  <tr>
+                    <td>Se puede redefinir dentro de una media query</td>
+                    <td>Solo existe en tiempo de compilación</td>
+                  </tr>
+                  <tr>
+                    <td>No admite lógica ni operaciones matemáticas</td>
+                    <td>
+                      Sí admite lógica: <code>@if</code>, <code>@for</code>,
+                      funciones como <code>lighten($color, 10%)</code>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>Perfecta para temas dinámicos y modo oscuro</td>
+                    <td>Perfecta para generar CSS repetitivo de forma inteligente</td>
+                  </tr>
+                </tbody>
+              </table>
             </div>
 
             <p>
-              En este manual lo usaremos solo como una <strong>capa opcional</strong>:
-              si entiendes CSS, puedes aprender SCSS sin cambiar tu forma de pensar
-              en la maquetación.
+              Veámoslo con un ejemplo. Con CSS nativo puedes hacer esto:
             </p>
+            <pre>
+              <code>{`/* CSS: variable nativa — funciona en el navegador */
+:root { --color-primary: #2563eb; }
+.btn  { background: var(--color-primary); }
+
+/* Puedes cambiarla con JS: */
+document.documentElement.style.setProperty('--color-primary', '#e11d48');`}</code>
+            </pre>
+
+            <p>
+              Eso es potente para temas dinámicos. Pero CSS nativo{" "}
+              <strong>no puede hacer esto</strong>:
+            </p>
+            <pre>
+              <code>{`// Sass: genera automáticamente 5 variantes de color
+$sizes: (sm: 0.75rem, md: 1rem, lg: 1.5rem, xl: 2rem);
+
+@each $name, $value in $sizes {
+  .text-#{$name} { font-size: $value; }
+}
+
+// Resultado CSS generado:
+// .text-sm { font-size: 0.75rem; }
+// .text-md { font-size: 1rem; }
+// .text-lg { font-size: 1.5rem; }
+// .text-xl { font-size: 2rem; }`}</code>
+            </pre>
+
+            <pre>
+              <code>{`// Sass: función que genera un color más claro automáticamente
+$primary: #2563eb;
+$primary-light: lighten($primary, 20%);  // #7da8f4 calculado por Sass
+
+.btn-ghost { color: $primary-light; }`}</code>
+            </pre>
+
+            <div className="callout">
+              Resumen claro:{" "}
+              <strong>
+                las variables CSS nativas son dinámicas (viven en el navegador,
+                responden a JS y media queries)
+              </strong>
+              . Las variables Sass son{" "}
+              <strong>
+                estáticas y con lógica (Sass las usa para calcular y generar
+                CSS antes de que llegue al navegador)
+              </strong>
+              . No son rivales — muchos proyectos usan las dos a la vez:
+              Sass para la lógica de generación y CSS custom properties para
+              los temas dinámicos.
+            </div>
+
+            <p>
+              Y más allá de las variables, Sass aporta otras tres cosas que
+              CSS nativo no tiene de forma tan completa:
+            </p>
+            <ul>
+              <li>
+                <strong>Mixins</strong>: bloques de estilos reutilizables que
+                aceptan parámetros, como una función que escupe CSS.
+              </li>
+              <li>
+                <strong>Archivos parciales (<code>@use</code>)</strong>: divide
+                tu CSS en decenas de archivos pequeños y Sass los une en uno
+                solo al compilar — sin HTTP extra.
+              </li>
+              <li>
+                <strong>Lógica (<code>@if</code>, <code>@for</code>, <code>@each</code>)</strong>: genera
+                CSS repetitivo (escalas de espaciado, variantes de color,
+                grid automático) sin copiar y pegar.
+              </li>
+            </ul>
+
+            <h3>¿Qué NO resuelve Sass?</h3>
+            <p>
+              Es igual de importante saber lo que Sass <em>no</em> hace:
+            </p>
+            <ul>
+              <li>
+                <strong>No enseña a maquetar.</strong> Flexbox, Grid y el
+                modelo de caja son CSS — Sass no los toca ni los mejora.
+              </li>
+              <li>
+                <strong>No mejora el rendimiento.</strong> El CSS que genera
+                Sass puede ser tan grande o tan eficiente como el que escribirías
+                a mano.
+              </li>
+              <li>
+                <strong>No corrige errores de diseño.</strong> Si tu lógica de
+                estilos está mal pensada, Sass la reproducirá tal cual.
+              </li>
+              <li>
+                <strong>No es imprescindible.</strong> Muchos proyectos
+                modernos usan CSS puro con custom properties y @layer sin
+                necesitar Sass.
+              </li>
+            </ul>
+
+            <div className="callout">
+              En una frase:{" "}
+              <strong>
+                Sass te ayuda a organizar y escribir mejor el CSS que ya
+                sabes
+              </strong>
+              , pero lo que acaba en el navegador sigue siendo CSS normal.
+            </div>
           </div>
         </details>
       </section>
@@ -486,6 +799,12 @@ $primary: #2563eb;
               >
                 github.com/inma2709/manualcss
               </a>
+            </li>
+            <li>
+              <Link to="/ejercicios">
+                🏋️ 20 ejercicios progresivos: HTML, CSS, Bootstrap y Tailwind
+              </Link>{" "}
+              — practica todo lo del manual con retos reales.
             </li>
           </ul>
         </div>

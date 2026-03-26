@@ -50,9 +50,7 @@ export default function Topbar() {
         >
           ◐
         </button>
-        <button className="icon-btn" type="button" aria-label="Ir al inicio" onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}>
-          ⌂
-        </button>
+        
       </div>
     </>
   );

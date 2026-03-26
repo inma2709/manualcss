@@ -521,6 +521,96 @@ p{ color: blue; }
           </div>
         </details>
       </section>
+      <h3>Cómo se calcula realmente la especificidad</h3>
+
+<p>
+  La especificidad no es solo “baja, media o alta”. En realidad se calcula
+  como una combinación numérica en tres niveles:
+</p>
+
+<div className="callout tip">
+  Se representa como: <strong>(IDs, clases, etiquetas)</strong>
+</div>
+
+<div className="table-wrap">
+  <table className="table">
+    <thead>
+      <tr>
+        <th>Selector</th>
+        <th>Especificidad</th>
+        <th>Explicación</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><code>p</code></td>
+        <td><strong>(0,0,1)</strong></td>
+        <td>1 etiqueta</td>
+      </tr>
+      <tr>
+        <td><code>.card</code></td>
+        <td><strong>(0,1,0)</strong></td>
+        <td>1 clase</td>
+      </tr>
+      <tr>
+        <td><code>#header</code></td>
+        <td><strong>(1,0,0)</strong></td>
+        <td>1 ID</td>
+      </tr>
+      <tr>
+        <td><code>.card p</code></td>
+        <td><strong>(0,1,1)</strong></td>
+        <td>1 clase + 1 etiqueta</td>
+      </tr>
+      <tr>
+        <td><code>.article h1</code></td>
+        <td><strong>(0,1,1)</strong></td>
+        <td>1 clase + 1 etiqueta</td>
+      </tr>
+      <tr>
+        <td><code>.article .title</code></td>
+        <td><strong>(0,2,0)</strong></td>
+        <td>2 clases</td>
+      </tr>
+      <tr>
+        <td><code>#header .card p</code></td>
+        <td><strong>(1,1,1)</strong></td>
+        <td>ID + clase + etiqueta</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<h3>Cómo interpretar estos números</h3>
+
+<p>
+  No es un número decimal. Se compara por bloques de izquierda a derecha:
+</p>
+
+<ul>
+  <li>Primero los <strong>IDs</strong></li>
+  <li>Si empatan, se comparan las <strong>clases</strong></li>
+  <li>Si siguen empatando, las <strong>etiquetas</strong></li>
+</ul>
+
+<div className="callout warn">
+  <strong>(1,0,0)</strong> SIEMPRE gana a <strong>(0,999,999)</strong>.
+  El ID domina completamente.
+</div>
+
+<figure className="media">
+          <img
+            src="/especificidades.png"
+            alt="Fundamentos de CSS · Manual CSS"
+            width="700"
+            height="320"
+            loading="lazy"
+            decoding="async"
+          />
+          <figcaption>
+            Fundamentos de CSS · Herencia,cascada y especificidad.
+          </figcaption>
+        </figure>
 
       {/* RELACIÓN ENTRE LOS 3 */}
       <section className="card">
@@ -1000,12 +1090,10 @@ p{ color: blue; }`}</code>
         </p>
 
         <div style={{ display: "flex", gap: "1rem", flexWrap: "wrap" }}>
-          <Link to="/css-cascada-2" className="btn btn-primary">
-            Continuar con Cascada y Especificidad (II)
+          <Link to="/css-variables" className="btn btn-primary">
+          Variables CSS
           </Link>
-          <Link to="/css-devtools" className="btn">
-            Ver DevTools
-          </Link>
+          
         </div>
       </section>
     </div>

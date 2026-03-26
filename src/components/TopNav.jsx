@@ -43,6 +43,7 @@ export default function TopNav() {
           <div className="topnav-submenu" role="menu" aria-label="Submenú Fundamentos">
             <NavLink to="css-introduccion" className={subLinkClass}>Introducción</NavLink>
             <NavLink to="css-interno-externo-1" className={subLinkClass}>CSS interno / externo</NavLink>
+            <NavLink to="css-interno-externo-2" className={subLinkClass}>Css base (reset general)</NavLink>
             <NavLink to="css-cascada-1" className={subLinkClass}>Cascada y especificidad ⭐</NavLink>
             <NavLink to="css-variables" className={subLinkClass}>Variables CSS</NavLink>
           </div>
@@ -59,6 +60,7 @@ export default function TopNav() {
             <NavLink to="css-selectores-basicos" className={subLinkClass}>Básicos</NavLink>
             <NavLink to="css-selectores-avanzados" className={subLinkClass}>Avanzados</NavLink>
             <NavLink to="css-pseudoclases" className={subLinkClass}>Pseudoclases</NavLink>
+            <NavLink to="css-pseudoclases-funcionales" className={subLinkClass}>Pseudoclases funcionales</NavLink>
             <NavLink to="css-practica-selectores" className={subLinkClass}>Pseudoelementos</NavLink>
              <NavLink to="css-inline" className={subLinkClass}>Practica guiada ⭐</NavLink>
           </div>
@@ -71,9 +73,10 @@ export default function TopNav() {
           </summary>
 
           <div className="topnav-submenu" role="menu" aria-label="Submenú Layout">
-             <NavLink to="css-interno-externo-2" className={subLinkClass}>Base</NavLink>
+            
             <NavLink to="css-cascada-2" className={subLinkClass}>Color</NavLink>
             <NavLink to="css-devtools" className={subLinkClass}>Fuentes ⭐</NavLink>
+             <NavLink to="css-zindex" className={subLinkClass}>Espacio</NavLink>
             
           </div>
         </details>
@@ -137,8 +140,15 @@ export default function TopNav() {
           <div className="topnav-submenu" role="menu" aria-label="Submenú Extra">
             <NavLink to="css-sass" className={subLinkClass}>SASS</NavLink>
             <NavLink to="css-bootstrap" className={subLinkClass}>Bootstrap</NavLink>
+            <NavLink to="css-tailwind" className={subLinkClass}>Tailwind CSS</NavLink>
           </div>
         </details>
+
+        {/* EJERCICIOS */}
+        <NavLink to="ejercicios" className={linkClass}>
+          <span aria-hidden="true">🏋️</span>
+          <span className="label">Ejercicios</span>
+        </NavLink>
 
        
       </div>

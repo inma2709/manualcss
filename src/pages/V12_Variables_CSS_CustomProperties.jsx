@@ -15,6 +15,19 @@ export default function V12_Variables_CSS_CustomProperties() {
           así que puedes crear temas, componentes y sistemas de diseño con lógica
           profesional.
         </p>
+        <figure className="media">
+          <img
+            src="/variables.png"
+            alt="Fundamentos de CSS · Manual CSS"
+            width="700"
+            height="320"
+            loading="lazy"
+            decoding="async"
+          />
+          <figcaption>
+            Fundamentos de CSS · Herencia,cascada y especificidad.
+          </figcaption>
+        </figure>
 
        
       </section>
@@ -186,6 +199,63 @@ body{
       </div>
     </div>
   </details>
+  <details className="dd">
+  <summary>6) Qué es un token de diseño (design token)</summary>
+  <div className="dd-body">
+    <p>
+      Un <strong>design token</strong> es un <strong>valor de diseño reutilizable</strong>
+      que representa una decisión visual del sistema: colores, espacios, tipografías,
+      radios, sombras, etc.
+    </p>
+
+    <p>
+      No es solo una variable: es una <strong>unidad semántica</strong> del sistema de diseño.
+      Es decir, no describe “qué valor es”, sino <strong>qué papel cumple</strong>.
+    </p>
+
+    <pre>
+      <code>{`:root{
+  /* Tokens de color */
+  --color-primary: #4f46e5;
+  --color-text: #0f172a;
+
+  /* Tokens de espacio */
+  --space-sm: .5rem;
+  --space-md: 1rem;
+
+  /* Tokens de radio */
+  --radius-md: 12px;
+}`}</code>
+    </pre>
+
+    <div className="callout">
+      Diferencia clave:
+      <br />
+      <strong>Variable</strong> = contenedor de un valor<br />
+      <strong>Token</strong> = decisión de diseño reutilizable con significado
+    </div>
+
+    <div className="callout tip">
+      Buen naming:
+      <ul>
+        <li><code>--color-primary</code> (✔ semántico)</li>
+        <li><code>--blue-500</code> (✔ técnico, pero menos expresivo)</li>
+        <li><code>--color-bonito</code> (❌ sin criterio)</li>
+      </ul>
+    </div>
+
+    <p>
+      Los tokens son la base de los <strong>design systems</strong>. Permiten que
+      todo el proyecto mantenga coherencia visual y que los cambios se hagan
+      de forma global.
+    </p>
+
+    <div className="callout tip">
+      Regla profesional:
+      <strong>no pienses en valores → piensa en decisiones de diseño</strong>.
+    </div>
+  </div>
+</details>
 
   <details className="dd">
     <summary>5) Variables CSS ≠ preprocesadores (Sass, Less)</summary>
@@ -489,6 +559,194 @@ body.theme-dark{
   </div>
 </section>
 
+<section className="card">
+  <h2>Ejercicio guiado — Tema claro y tema oscuro con variables CSS</h2>
+
+  <details className="dd" open>
+    <summary>Enunciado del ejercicio</summary>
+    <div className="dd-body">
+      <p>
+        Vamos a crear una página muy sencilla con un <code>h1</code> y dos
+        <code> div</code>. El objetivo es entender cómo las variables CSS nos
+        permiten cambiar la apariencia completa de la interfaz modificando solo
+        unos pocos valores.
+      </p>
+
+      <p>Debes conseguir lo siguiente:</p>
+
+      <ol>
+        <li>
+          Crear un título principal con el texto:
+          <strong> Mi primer cambio de tema con variables CSS</strong>.
+        </li>
+        <li>
+          Crear dos bloques o tarjetas con un pequeño texto dentro.
+        </li>
+        <li>
+          Definir en <code>:root</code> las variables del <strong>tema claro</strong>:
+          fondo general, color de texto, fondo de tarjeta y borde.
+        </li>
+        <li>
+          Crear una clase <code>.theme-dark</code> que cambie esas mismas variables
+          para simular un <strong>tema oscuro</strong>.
+        </li>
+        <li>
+          Aplicar las variables en <code>body</code> y en los <code>div</code>.
+        </li>
+        <li>
+          Probar el cambio añadiendo o quitando la clase <code>theme-dark</code>
+          en la etiqueta <code>body</code>.
+        </li>
+      </ol>
+
+      <div className="callout tip">
+        Idea clave: no vas a cambiar el color de cada elemento uno por uno.
+        Vas a cambiar las variables, y los elementos responderán automáticamente.
+      </div>
+    </div>
+  </details>
+
+  <details className="dd">
+    <summary>Solución 1 — HTML</summary>
+    <div className="dd-body">
+      <p>
+        Este HTML contiene un título y dos bloques. Para probar el modo oscuro,
+        puedes poner la clase <code>theme-dark</code> en el <code>body</code>.
+      </p>
+
+      <pre>
+        <code>{`<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Variables CSS - Tema claro y oscuro</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <h1>Mi primer cambio de tema con variables CSS</h1>
+
+  <div class="card">
+    <h2>Bloque 1</h2>
+    <p>Este bloque usa los colores definidos con variables CSS.</p>
+  </div>
+
+  <div class="card">
+    <h2>Bloque 2</h2>
+    <p>Si cambias el tema, este bloque también cambiará sin tocar sus reglas.</p>
+  </div>
+</body>
+</html>`}</code>
+      </pre>
+
+      <div className="callout">
+        Para probar el tema oscuro, cambia esta línea:
+        <br />
+        <code>{`<body>`}</code>
+        <br />
+        por esta:
+        <br />
+        <code>{`<body class="theme-dark">`}</code>
+      </div>
+    </div>
+  </details>
+
+  <details className="dd">
+    <summary>Solución 2 — CSS con :root y tema oscuro</summary>
+    <div className="dd-body">
+      <p>
+        Aquí definimos primero las variables del tema claro en <code>:root</code>.
+        Después, en <code>body.theme-dark</code>, redefinimos esas mismas variables.
+      </p>
+
+      <pre>
+        <code>{`:root{
+  --bg: #f8fafc;
+  --text: #0f172a;
+  --card-bg: #ffffff;
+  --card-border: #cbd5e1;
+  --title: #2563eb;
+}
+
+body{
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  padding: 2rem;
+}
+
+body.theme-dark{
+  --bg: #0f172a;
+  --text: #e2e8f0;
+  --card-bg: #1e293b;
+  --card-border: #475569;
+  --title: #93c5fd;
+}
+
+h1{
+  color: var(--title);
+  margin-bottom: 1.5rem;
+}
+
+.card{
+  background: var(--card-bg);
+  border: 2px solid var(--card-border);
+  padding: 1rem;
+  border-radius: 12px;
+  margin-bottom: 1rem;
+}`}</code>
+      </pre>
+
+      <div className="callout tip">
+        Observa lo importante: las reglas de <code>.card</code> no cambian.
+        Lo único que cambia son los valores de las variables.
+      </div>
+    </div>
+  </details>
+
+  <details className="dd">
+    <summary>Qué debes observar al hacer la prueba</summary>
+    <div className="dd-body">
+      <ul>
+        <li>El fondo general de la página cambia.</li>
+        <li>El color del texto cambia.</li>
+        <li>El color del título cambia.</li>
+        <li>El fondo y el borde de las dos tarjetas cambian.</li>
+        <li>
+          Todo ocurre sin reescribir las reglas de cada elemento: cambias variables,
+          no estilos sueltos.
+        </li>
+      </ul>
+
+      <div className="callout">
+        Este ejercicio parece pequeño, pero introduce una idea muy potente:
+        <strong> separar estructura visual y valores del sistema</strong>.
+      </div>
+    </div>
+  </details>
+
+  <details className="dd">
+    <summary>Mini reto de ampliación</summary>
+    <div className="dd-body">
+      <p>Cuando te funcione, haz estas mejoras:</p>
+      <ol>
+        <li>Añade una tercera tarjeta.</li>
+        <li>Crea una variable para la sombra, por ejemplo <code>--shadow</code>.</li>
+        <li>Haz que el título tenga un color distinto en claro y oscuro.</li>
+        <li>
+          Prueba a cambiar solo los valores de <code>:root</code> para crear otro tema.
+        </li>
+      </ol>
+
+      <div className="callout tip">
+        La práctica correcta aquí es esta: primero entiendes el mecanismo,
+        después aumentas el número de variables.
+      </div>
+    </div>
+  </details>
+</section>
+
       {/* TEST INTERACTIVO */}
       <Quiz
         title="Test interactivo — Variables CSS"
@@ -589,14 +847,7 @@ body.theme-dark{
           sombras y tamaños. Ahí es donde tu CSS empieza a parecer profesional.
         </div>
 
-        <div style={{ display: "flex", gap: "1rem", flexWrap: "wrap" }}>
-          <Link to="/css-texto-1" className="btn">
-            Volver a Texto
-          </Link>
-          <Link to="/css-box-model" className="btn btn-primary">
-            Continuar: Box Model
-          </Link>
-        </div>
+        
       </section>
 
     </div>

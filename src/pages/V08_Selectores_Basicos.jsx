@@ -8,21 +8,133 @@ export default function SelectoresBasicos() {
   return (
     <main className="doc" id="contenido">
       {/* =========================
-          INTRO
+          HERO / INTRODUCCIÓN
       ========================== */}
-      <section className="card">
-        <h1>CSS · Selectores básicos</h1>
-        <p>
-          Un <strong>selector</strong> es la “pregunta” que le haces al navegador para decirle{" "}
-          <em>a qué elementos</em> debe aplicar unas reglas CSS. Sin selectores, CSS no podría
-          “apuntar” a nada: tendrías estilos, pero no sabrías <strong>dónde</strong> aplicarlos.
+      <section className="card hero">
+        <p className="doc-kicker">CSS · Selectores</p>
+        <h1>Selectores básicos: cómo une CSS el HTML</h1>
+        <p className="doc-lead">
+          Esta es una de las primeras ideas realmente importantes en CSS:
+          <strong> el navegador no inventa qué elemento debe estilizar</strong>.
+          Tú se lo indicas con un selector. Por eso, antes de memorizar muchos
+          selectores, hay que entender bien <strong>cómo se relacionan HTML y CSS</strong>.
         </p>
 
         <div className="callout tip">
-          Idea clave: <strong>Selector + Declaraciones</strong> = “A estos elementos aplícales estos estilos”.
+          Idea central del tema: <strong>HTML aporta la estructura</strong> y
+          <strong> CSS apunta a esa estructura para aplicarle estilos</strong>.
+        </div>
+      </section>
+
+      {/* =========================
+          ÍNDICE
+      ========================== */}
+      <section className="doc-index">
+        <h2>Índice del tema</h2>
+        <ol>
+          <li>
+            <a href="#union-html-css">Cómo se unen HTML y CSS</a>
+          </li>
+          <li>
+            <a href="#estructura-regla">Estructura de una regla CSS</a>
+          </li>
+          <li>
+            <a href="#tres-selectores">Los tres selectores que debes dominar primero</a>
+          </li>
+          <li>
+            <a href="#otros-selectores">Otros selectores básicos</a>
+          </li>
+          <li>
+            <a href="#especificidad">Recordatorio de especificidad</a>
+          </li>
+          <li>
+            <a href="#practica">Práctica guiada</a>
+          </li>
+        </ol>
+      </section>
+
+      {/* =========================
+          CÓMO SE UNEN HTML Y CSS
+      ========================== */}
+      <section className="doc-section" id="union-html-css">
+        <h2>1) Cómo se unen HTML y CSS</h2>
+
+        <p>
+          El alumno suele ver HTML y CSS como dos cosas separadas, pero en realidad
+          funcionan juntas todo el tiempo:
+        </p>
+
+        <ul>
+          <li>
+            <strong>HTML</strong> crea los elementos: títulos, párrafos, menús,
+            bloques, enlaces, botones.
+          </li>
+          <li>
+            <strong>CSS</strong> busca esos elementos y les da estilo: color,
+            tamaño, fondo, borde, separación, tipografía.
+          </li>
+        </ul>
+
+        <div className="callout">
+          CSS no trabaja “en el aire”. Siempre necesita un elemento del HTML al
+          que poder apuntar.
         </div>
 
-        {/* HUECO PARA IMAGEN */}
+        <details className="dd" open>
+          <summary>Ejemplo mínimo: un HTML y una regla CSS</summary>
+          <div className="dd-body">
+            <p>Observa esta relación directa:</p>
+
+            <pre>
+              <code>{`<h1>Título principal</h1>
+<p>Este es un párrafo.</p>`}</code>
+            </pre>
+
+            <pre>
+              <code>{`h1{
+  color: blue;
+}
+
+p{
+  color: #334155;
+}`}</code>
+            </pre>
+
+            <p>
+              En este ejemplo, CSS busca la etiqueta <code>h1</code> y la etiqueta
+              <code> p</code> del HTML y les aplica estilos distintos.
+            </p>
+
+            <div className="callout tip">
+              Traducción mental correcta:
+              <br />
+              <strong>
+                “Busca este elemento del HTML y aplícale estas propiedades CSS”.
+              </strong>
+            </div>
+          </div>
+        </details>
+
+        <details className="dd">
+          <summary>Qué problema resuelve un selector</summary>
+          <div className="dd-body">
+            <p>
+              En una página real puede haber muchos párrafos, varios enlaces,
+              distintas tarjetas y diferentes zonas de contenido. El selector sirve
+              para resolver esta pregunta:
+            </p>
+
+            <div className="callout">
+              <strong>¿A qué elemento o grupo de elementos del HTML quiero aplicar este estilo?</strong>
+            </div>
+
+            <p>
+              Sin selectores, CSS no sabría si quieres estilizar todos los párrafos,
+              solo una tarjeta concreta o los enlaces que están dentro de un menú.
+            </p>
+          </div>
+        </details>
+
         <figure className="media">
           <img
             src="/selectores.png"
@@ -33,196 +145,603 @@ export default function SelectoresBasicos() {
             decoding="async"
           />
           <figcaption>
-            Imagen: <code>selectores</code> (pon el archivo en <code>public/selectores.png</code>).
+            El selector es la parte que apunta al HTML. El bloque de declaraciones
+            indica qué estilos se aplican.
           </figcaption>
         </figure>
       </section>
 
-      {/* ESTRUCTURA DE LOS SELECTORES */}
-<section className="card">
-  <h2>Estructura de los selectores CSS</h2>
+      {/* =========================
+          ESTRUCTURA DE LA REGLA
+      ========================== */}
+      <section className="doc-section" id="estructura-regla">
+        <h2>2) Estructura de una regla CSS</h2>
 
-  <p>
-    Antes de aprender tipos de selectores, es fundamental entender
-    <strong> cómo se escriben</strong> y <strong>qué significan</strong>.
-    Un selector no es más que una forma de describir
-    <em>a qué elementos del HTML queremos aplicar estilos</em>.
-  </p>
+        <details className="dd" open>
+          <summary>1) La forma general de una regla CSS</summary>
+          <div className="dd-body">
+            <p>Toda regla CSS sigue siempre esta estructura:</p>
 
-  <details className="dd" open>
-    <summary>1) Estructura básica de una regla CSS</summary>
-    <div className="dd-body">
-      <p>
-        Toda regla CSS sigue siempre la misma estructura:
-      </p>
-
-      <pre>
-        <code>{`selector {
+            <pre>
+              <code>{`selector{
   propiedad: valor;
   propiedad: valor;
 }`}</code>
-      </pre>
+            </pre>
 
-      <p>
-        Donde:
-      </p>
+            <ul>
+              <li>
+                <strong>Selector</strong>: indica a qué elemento o elementos del HTML
+                se aplica la regla.
+              </li>
+              <li>
+                <strong>Propiedad</strong>: el aspecto que quieres cambiar.
+              </li>
+              <li>
+                <strong>Valor</strong>: el cambio concreto que aplicas.
+              </li>
+            </ul>
 
-      <ul>
-        <li><strong>Selector</strong>: indica <em>qué elementos</em> se seleccionan</li>
-        <li><strong>Propiedad</strong>: qué aspecto se quiere cambiar</li>
-        <li><strong>Valor</strong>: el cambio concreto</li>
-      </ul>
+            <div className="callout tip">
+              Fórmula mental útil:
+              <strong> selector = a quién</strong> y
+              <strong> declaraciones = qué le haces</strong>.
+            </div>
+          </div>
+        </details>
 
-      <div className="callout tip">
-        Piensa el selector como una pregunta y el bloque como la respuesta visual.
-      </div>
-    </div>
-  </details>
+        <details className="dd">
+          <summary>2) Error común: confundir selector y propiedad</summary>
+          <div className="dd-body">
+            <p>
+              Un error muy frecuente al empezar es no distinguir entre la parte que
+              selecciona y la parte que estiliza.
+            </p>
 
-  <details className="dd">
-    <summary>2) Cómo se lee un selector</summary>
-    <div className="dd-body">
-      <p>
-        Un buen hábito es <strong>leer el selector en voz alta</strong>.
-        Eso evita errores y ayuda a entender por qué se aplica (o no) un estilo.
-      </p>
-
-      <pre>
-        <code>{`.menu a.active{
-  color: red;
-}`}</code>
-      </pre>
-
-      <p>
-        Lectura correcta:
-        <em>
-          “Selecciona los enlaces (<code>a</code>) que están dentro de
-          <code>.menu</code> y que además tienen la clase <code>active</code>”.
-        </em>
-      </p>
-
-      <div className="callout">
-        Si no puedes leer el selector con palabras normales, probablemente sea demasiado complejo.
-      </div>
-    </div>
-  </details>
-
-  <details className="dd">
-    <summary>3) Partes que puede tener un selector</summary>
-    <div className="dd-body">
-      <p>
-        Un selector puede estar formado por una o varias de estas partes:
-      </p>
-
-      <ul>
-        <li><strong>Etiqueta</strong>: <code>p</code>, <code>h1</code>, <code>button</code></li>
-        <li><strong>Clase</strong>: <code>.card</code>, <code>.active</code></li>
-        <li><strong>ID</strong>: <code>#header</code></li>
-        <li><strong>Combinadores</strong>: espacio, <code>&gt;</code>, <code>+</code></li>
-        <li><strong>Pseudoclases</strong>: <code>:hover</code>, <code>:first-child</code></li>
-        <li><strong>Pseudoelementos</strong>: <code>::before</code>, <code>::after</code></li>
-      </ul>
-
-      <div className="callout tip">
-        En los selectores básicos nos centraremos solo en etiqueta, clase, ID y descendientes.
-      </div>
-    </div>
-  </details>
-
-  <details className="dd">
-    <summary>4) Selectores simples vs selectores compuestos</summary>
-    <div className="dd-body">
-      <p>
-        Un selector puede ser:
-      </p>
-
-      <ul>
-        <li>
-          <strong>Simple</strong>: una sola parte
-          <pre><code>{`p
-.card
-#intro`}</code></pre>
-        </li>
-        <li>
-          <strong>Compuesto</strong>: varias partes combinadas
-          <pre><code>{`.menu a
-.card .title
-button.primary`}</code></pre>
-        </li>
-      </ul>
-
-      <div className="callout">
-        Cuantas más partes tenga un selector, más específico suele ser.
-      </div>
-    </div>
-  </details>
-
-  <details className="dd">
-    <summary>5) Orden y precisión: lo importante</summary>
-    <div className="dd-body">
-      <p>
-        El orden de las partes del selector <strong>no es aleatorio</strong>.
-        CSS se lee de <strong>derecha a izquierda</strong> internamente:
-      </p>
-
-      <pre>
-        <code>{`.card p.note{}`}</code>
-      </pre>
-
-      <p>
-        El navegador piensa:
-      </p>
-
-      <ol>
-        <li>Busca elementos <code>p</code> con clase <code>note</code></li>
-        <li>Comprueba si están dentro de <code>.card</code></li>
-      </ol>
-
-      <div className="callout warn">
-        Selectores largos y enrevesados suelen indicar un HTML o CSS mal estructurado.
-      </div>
-    </div>
-  </details>
-
-  <details className="dd">
-    <summary>6) Error común: confundir selector y propiedad</summary>
-    <div className="dd-body">
-      <p>
-        Un error típico al empezar es pensar que cosas como <code>color</code>
-        o <code>background</code> son selectores.
-      </p>
-
-      <pre>
-        <code>{`/* ❌ Incorrecto */
+            <pre>
+              <code>{`/* ❌ Incorrecto */
 color{
   red: true;
 }`}</code>
-      </pre>
+            </pre>
 
-      <pre>
-        <code>{`/* ✅ Correcto */
+            <pre>
+              <code>{`/* ✅ Correcto */
 p{
   color: red;
 }`}</code>
-      </pre>
+            </pre>
 
-      <div className="callout">
-        El selector siempre apunta al HTML; las propiedades describen el estilo.
-      </div>
-    </div>
-  </details>
-</section>
+            <div className="callout">
+              <strong>color</strong> no es un selector. Es una propiedad.
+              <br />
+              <strong>p</strong> sí es un selector, porque apunta a elementos del HTML.
+            </div>
+          </div>
+        </details>
 
+        <details className="dd">
+          <summary>3) Cómo leer una regla CSS en voz alta</summary>
+          <div className="dd-body">
+            <p>
+              Un buen hábito es leer las reglas como si estuvieras describiendo al
+              navegador lo que debe hacer.
+            </p>
+
+            <pre>
+              <code>{`p{
+  color: #334155;
+}`}</code>
+            </pre>
+
+            <p>
+              Se lee así:
+              <em> “A todos los párrafos, aplícales color gris azulado”.</em>
+            </p>
+
+            <div className="callout tip">
+              Si sabes leer una regla con naturalidad, empiezas a entender CSS de verdad.
+            </div>
+          </div>
+        </details>
+      </section>
 
       {/* =========================
-          DOCUMENTACIÓN + VIDEO
+          TRES SELECTORES BÁSICOS
       ========================== */}
-      <section className="card">
-        <h2>Recursos (documentación + vídeo)</h2>
+      <section className="doc-section" id="tres-selectores">
+        <h2>3) Los tres selectores que debes dominar primero</h2>
+
+        <p>
+          Antes de introducir más variedad, aquí están los tres selectores que
+          sostienen casi todo el aprendizaje inicial:
+        </p>
+
+        <ol>
+          <li>Selector de etiqueta o categoría</li>
+          <li>Selector de clase</li>
+          <li>Selector de ID</li>
+        </ol>
+
+        <div className="callout tip">
+          Si estos tres quedan claros, luego entenderás mucho mejor el resto.
+        </div>
+
+        <details className="dd" open>
+          <summary>1) Selector de etiqueta o categoría</summary>
+          <div className="dd-body">
+            <p>
+              Selecciona <strong>todas las etiquetas de un mismo tipo</strong>:
+              <code> p</code>, <code>h1</code>, <code>button</code>, <code>ul</code>, etc.
+            </p>
+
+            <pre>
+              <code>{`p{
+  color: #334155;
+}`}</code>
+            </pre>
+
+            <p>
+              Esto significa: “todos los párrafos de la página tendrán este color”.
+            </p>
+
+            <pre>
+              <code>{`<p>Primer párrafo</p>
+<p>Segundo párrafo</p>
+<p>Tercer párrafo</p>`}</code>
+            </pre>
+
+            <div className="callout">
+              El selector de etiqueta es útil cuando quieres dar un estilo general
+              a todos los elementos del mismo tipo.
+            </div>
+
+            <div className="callout warn">
+              Ojo: es un selector amplio. Si lo usas, afectará a todos los elementos
+              de esa etiqueta dentro del alcance de la regla.
+            </div>
+          </div>
+        </details>
+
+        <details className="dd">
+          <summary>2) Selector de clase</summary>
+          <div className="dd-body">
+            <p>
+              El selector de clase empieza por <code>.</code> y selecciona cualquier
+              elemento que tenga esa clase.
+            </p>
+
+            <pre>
+              <code>{`.card{
+  padding: 1rem;
+  border: 1px solid #cbd5e1;
+  border-radius: .75rem;
+}`}</code>
+            </pre>
+
+            <pre>
+              <code>{`<div class="card">Tarjeta 1</div>
+<div class="card">Tarjeta 2</div>
+<section class="card">Tarjeta 3</section>`}</code>
+            </pre>
+
+            <p>
+              Aquí la misma clase <code>card</code> se reutiliza en varios elementos.
+              Eso es precisamente lo que hace tan importante a la clase en CSS.
+            </p>
+
+            <p>
+              A diferencia del <code>id</code>, una <strong>clase sí puede repetirse</strong>
+              tantas veces como haga falta. Por eso es la opción más común en proyectos
+              reales: permite construir estilos reutilizables y coherentes.
+            </p>
+
+            <div className="callout tip">
+              Regla muy útil:
+              <strong> si un estilo se repite, normalmente debe ir en una clase</strong>.
+            </div>
+
+            <div className="callout">
+              Una clase no describe un elemento HTML concreto, sino una función visual
+              o semántica que puede repetirse.
+            </div>
+          </div>
+        </details>
+
+       <details className="dd">
+  <summary>3) Selector de ID</summary>
+  <div className="dd-body">
+    <p>
+      El selector de ID empieza por <code>#</code> y selecciona un elemento
+      que tenga ese identificador concreto.
+    </p>
+
+    <pre>
+      <code>{`#hero{
+  padding: 2rem;
+}`}</code>
+    </pre>
+
+    <pre>
+      <code>{`<section id="hero">
+  <h1>Zona principal</h1>
+</section>`}</code>
+    </pre>
+
+    <p>
+      El atributo <code>id</code> debe ser <strong>único</strong> dentro de la página.
+      No puede haber dos elementos con el mismo ID.
+    </p>
+
+    <p>
+      Esto significa que el ID sirve para identificar un elemento muy concreto,
+      no para estilos repetidos.
+    </p>
+
+    <details className="dd">
+      <summary>¿Qué pasa si repites un ID?</summary>
+      <div className="dd-body">
+        <p>
+          Es una duda muy habitual: si pones el mismo <code>id</code> en varios elementos,
+          <strong> CSS sí aplicará los estilos a todos</strong>.
+        </p>
+
+        <pre>
+          <code>{`<div id="card">Uno</div>
+<div id="card">Dos</div>`}</code>
+        </pre>
+
+        <pre>
+          <code>{`#card{
+  border: 1px solid black;
+}`}</code>
+        </pre>
+
+        <p>
+          En este caso, los dos elementos tendrán borde. Entonces, ¿por qué no usarlo?
+        </p>
+
+        <p>
+          Porque rompe la lógica del HTML y genera problemas importantes:
+        </p>
 
         <ul>
           <li>
-            📘 Documentación (W3Schools):{" "}
+            <strong>JavaScript:</strong> <code>getElementById</code> solo devuelve un elemento.
+          </li>
+          <li>
+            <strong>Anclas:</strong> los enlaces <code>#id</code> no funcionan correctamente si hay varios.
+          </li>
+          <li>
+            <strong>Accesibilidad:</strong> herramientas como lectores de pantalla esperan IDs únicos.
+          </li>
+          <li>
+            <strong>Mantenimiento:</strong> el código se vuelve confuso y difícil de escalar.
+          </li>
+        </ul>
+
+        <div className="callout">
+          El problema no es que CSS falle, sino que el documento deja de tener una estructura coherente.
+        </div>
+
+        <p>
+          Cuando necesitas aplicar el mismo estilo a varios elementos, la solución correcta es usar
+          <code> class</code>.
+        </p>
+
+        <pre>
+          <code>{`<div class="card">Uno</div>
+<div class="card">Dos</div>`}</code>
+        </pre>
+
+        <pre>
+          <code>{`.card{
+  border: 1px solid black;
+}`}</code>
+        </pre>
+      </div>
+    </details>
+
+    <div className="callout warn">
+      En CSS moderno, el ID se usa poco para estilos porque tiene mucha
+      especificidad. Es mejor reservarlo para anclas, accesibilidad o casos
+      muy concretos, y usar clases para la mayor parte del estilo.
+    </div>
+  </div>
+</details>
+
+       <details className="dd">
+  <summary>4) Comparación clara: etiqueta, clase e ID</summary>
+  <div className="dd-body">
+    <div className="table-wrap">
+      <table className="table">
+        <thead>
+          <tr>
+            <th>Selector</th>
+            <th>Sintaxis</th>
+            <th>Qué selecciona</th>
+            <th>Cuándo usarlo</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Etiqueta</td>
+            <td><code>p</code></td>
+            <td>Todos los elementos de ese tipo</td>
+            <td>Estilos generales</td>
+          </tr>
+          <tr>
+            <td>Clase</td>
+            <td><code>.card</code></td>
+            <td>Todos los elementos con esa clase</td>
+            <td>Estilos reutilizables</td>
+          </tr>
+          <tr>
+            <td>ID</td>
+            <td><code>#hero</code></td>
+            <td>Un único elemento (conceptualmente)</td>
+            <td>Casos concretos y excepcionales</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div className="callout tip">
+      Primera regla práctica del manual:
+      <strong> piensa primero en clases</strong>. Usa etiqueta para base
+      general e ID solo cuando realmente lo necesites.
+    </div>
+
+    <div className="callout warn">
+      <strong>Recordatorio clave: especificidad</strong>
+      <p style={{ marginTop: ".5rem" }}>
+        No todos los selectores tienen la misma “fuerza”. Cuando varias reglas afectan al mismo elemento:
+      </p>
+      <ul>
+        <li><strong>ID (#)</strong> → más fuerte</li>
+        <li><strong>Clase (.)</strong> → nivel intermedio</li>
+        <li><strong>Etiqueta</strong> → más débil</li>
+      </ul>
+
+      <pre>
+        <code>{`p{ color: green; }
+.card{ color: blue; }
+#hero{ color: red; }`}</code>
+      </pre>
+
+      <p>
+        Si un elemento cumple las tres condiciones, el color será <strong>rojo</strong>,
+        porque el selector de <code>ID</code> tiene mayor especificidad.
+      </p>
+
+      <p>
+        Si dos reglas tienen la misma fuerza, gana la que esté <strong>más abajo</strong> en el CSS.
+      </p>
+    </div>
+  </div>
+</details>
+      </section>
+
+      {/* =========================
+          OTROS SELECTORES
+      ========================== */}
+      <section className="doc-section" id="otros-selectores">
+        <h2>4) Otros selectores básicos que debes conocer después</h2>
+
+        <p>
+          Una vez entendidos etiqueta, clase e ID, ya tiene sentido ampliar el mapa.
+          Ahora sí podemos introducir otros selectores relevantes sin mezclarlo todo
+          desde el principio.
+        </p>
+
+        <details className="dd" open>
+          <summary>1) Selector universal (*)</summary>
+          <div className="dd-body">
+            <p>
+              El selector universal selecciona <strong>todos los elementos</strong>.
+            </p>
+
+            <pre>
+              <code>{`*{
+  box-sizing: border-box;
+}`}</code>
+            </pre>
+
+            <div className="callout tip">
+              Se usa a menudo para ajustes globales, como el box model.
+            </div>
+
+            <div className="callout warn">
+              No conviene abusar de él para estilos pesados porque afecta a toda la página.
+            </div>
+          </div>
+        </details>
+
+        <details className="dd">
+          <summary>2) Selector por agrupación (,)</summary>
+          <div className="dd-body">
+            <p>
+              Permite aplicar el mismo bloque de estilos a varios selectores separados por coma.
+            </p>
+
+            <pre>
+              <code>{`h1, h2, h3{
+  letter-spacing: .2px;
+}`}</code>
+            </pre>
+
+            <div className="callout">
+              Sirve para evitar duplicar reglas cuando varios elementos comparten estilo.
+            </div>
+          </div>
+        </details>
+
+        <details className="dd">
+          <summary>3) Selector descendiente (espacio)</summary>
+          <div className="dd-body">
+            <p>
+              Selecciona elementos que estén <strong>dentro</strong> de otros.
+            </p>
+
+            <pre>
+              <code>{`.menu a{
+  text-decoration: none;
+}`}</code>
+            </pre>
+
+            <p>
+              Se lee así:
+              <em> “Selecciona todos los enlaces que estén dentro de .menu”.</em>
+            </p>
+
+            <div className="callout tip">
+              Este selector ya introduce una idea importante: CSS no solo mira el
+              elemento, también puede mirar su posición dentro del HTML.
+            </div>
+          </div>
+        </details>
+
+        <details className="dd">
+          <summary>4) Selector compuesto: varias condiciones a la vez</summary>
+          <div className="dd-body">
+            <p>
+              Un selector puede exigir más de una condición al mismo tiempo.
+            </p>
+
+            <pre>
+              <code>{`.menu a.active{
+  border-bottom: 2px solid currentColor;
+}`}</code>
+            </pre>
+
+            <p>Esto significa:</p>
+            <ol>
+              <li>Busca enlaces <code>a</code></li>
+              <li>Que estén dentro de <code>.menu</code></li>
+              <li>Y que además tengan la clase <code>active</code></li>
+            </ol>
+
+            <div className="callout">
+              Aquí ya no hablamos de un selector simple, sino de un selector más preciso.
+            </div>
+          </div>
+        </details>
+
+        <details className="dd">
+          <summary>5) Qué otras partes puede tener un selector</summary>
+          <div className="dd-body">
+            <p>
+              Más adelante estudiarás otros tipos de selectores y mecanismos:
+            </p>
+
+            <ul>
+              <li>
+                <strong>Combinadores</strong>: espacio, <code>&gt;</code>, <code>+</code>
+              </li>
+              <li>
+                <strong>Pseudoclases</strong>: <code>:hover</code>, <code>:first-child</code>
+              </li>
+              <li>
+                <strong>Pseudoelementos</strong>: <code>::before</code>, <code>::after</code>
+              </li>
+              <li>
+                <strong>Selectores de atributos</strong>
+              </li>
+            </ul>
+
+            <div className="callout tip">
+              No hace falta dominar todo hoy. Lo importante en esta lección es salir
+              sabiendo con seguridad cómo se enlaza HTML y CSS y cómo funcionan
+              etiqueta, clase e ID.
+            </div>
+          </div>
+        </details>
+
+        <details className="dd">
+          <summary>6) Cómo se lee un selector más complejo</summary>
+          <div className="dd-body">
+            <p>
+              Un buen hábito es verbalizar el selector para comprobar que entiendes
+              lo que pide.
+            </p>
+
+            <pre>
+              <code>{`.menu a.active{
+  color: red;
+}`}</code>
+            </pre>
+
+            <p>
+              Lectura correcta:
+              <em>
+                {" "}
+                “Selecciona los enlaces que están dentro de .menu y que además tienen la clase active”.
+              </em>
+            </p>
+
+            <div className="callout">
+              Si no puedes leer el selector con palabras normales, probablemente
+              aún no lo entiendes del todo o es demasiado complejo para ese momento.
+            </div>
+          </div>
+        </details>
+      </section>
+
+      {/* =========================
+          ESPECIFICIDAD
+      ========================== */}
+      <section className="doc-section" id="especificidad">
+        <h2>5) Recordatorio importante: especificidad</h2>
+
+        <p>
+          Cuando varias reglas apuntan al mismo elemento, el navegador decide cuál
+          gana usando la <strong>cascada</strong> y la <strong>especificidad</strong>.
+        </p>
+
+        <div className="callout tip">
+          Regla rápida:
+          <strong> ID &gt; clase &gt; etiqueta</strong>.
+          <br />
+          Si empatan, normalmente gana la regla que está más abajo en el archivo CSS.
+        </div>
+
+        <details className="dd" open>
+          <summary>Mini ejemplo: tres reglas en conflicto</summary>
+          <div className="dd-body">
+            <pre>
+              <code>{`p{ color: green; }       /* etiqueta */
+.note{ color: blue; }    /* clase */
+#intro{ color: red; }    /* ID */`}</code>
+            </pre>
+
+            <p>
+              Si un elemento tiene <code>id="intro"</code> y <code>class="note"</code>,
+              el texto será <strong>rojo</strong>, porque el selector de ID es más específico.
+            </p>
+          </div>
+        </details>
+
+        <div className="callout warn">
+          Consejo profesional: evita pelearte con la especificidad. Prioriza clases
+          y estructura el CSS con lógica para no depender de IDs ni de selectores
+          excesivamente largos.
+        </div>
+      </section>
+
+      {/* =========================
+          RECURSOS
+      ========================== */}
+      <section className="doc-section">
+        <h2>6) Recursos de apoyo</h2>
+
+        <p>
+          Úsalos como refuerzo después de trabajar la explicación y la práctica:
+        </p>
+
+        <ul>
+          <li>
+            📘 Documentación:
+            {" "}
             <a
               href="https://www.w3schools.com/css/css_selectors.asp"
               target="_blank"
@@ -232,7 +751,8 @@ p{
             </a>
           </li>
           <li>
-            🎥 Vídeo (selectores básicos):{" "}
+            🎥 Vídeo:
+            {" "}
             <a
               href="https://www.youtube.com/watch?v=o4srpChv-eg"
               target="_blank"
@@ -244,310 +764,35 @@ p{
         </ul>
 
         <div className="callout">
-          Consejo: abre la documentación en una pestaña y el editor en otra. Vas probando cada selector
-          y anotando “qué selecciona” y “cuándo usarlo”.
+          Método recomendado: abre la documentación en una pestaña y el editor en otra.
+          Prueba cada selector y escribe con tus palabras qué selecciona.
         </div>
 
-        <div className="dd-body" style={{ marginTop: "1rem" }}>
-          <div className="callout tip">
-            Vamos a ver un vídeo corto que resume los selectores básicos y su funcionamiento.
-          </div>
-
-          <div className="media" style={{ maxWidth: 900 }}>
-            <iframe
-              width="900"
-              height="506"
-              src="https://www.youtube.com/embed/o4srpChv-eg"
-              title="Vídeo: selectores básicos en CSS"
-              frameBorder="0"
-              loading="lazy"
-              referrerPolicy="strict-origin-when-cross-origin"
-              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-              allowFullScreen
-              style={{ borderRadius: "0.75rem", width: "100%" }}
-            />
-          </div>
+        <div className="media" style={{ maxWidth: 900 }}>
+          <iframe
+            width="900"
+            height="506"
+            src="https://www.youtube.com/embed/o4srpChv-eg"
+            title="Vídeo: selectores básicos en CSS"
+            frameBorder="0"
+            loading="lazy"
+            referrerPolicy="strict-origin-when-cross-origin"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+            allowFullScreen
+            style={{ borderRadius: "0.75rem", width: "100%" }}
+          />
         </div>
       </section>
 
       {/* =========================
-          CONCEPTO: POR QUÉ + CÓMO
+          PRÁCTICA
       ========================== */}
-      <section className="card">
-        <h2>Qué es un selector y cómo funciona</h2>
-
-        <details className="dd" open>
-          <summary>1) La estructura de una regla CSS</summary>
-          <div className="dd-body">
-            <p>
-              Una regla CSS se compone de:
-              <strong> selector</strong> (a quién) + <strong>bloque de declaraciones</strong> (qué estilos).
-            </p>
-
-            <pre>
-              <code>{`/* selector */   /* declaraciones */
-p{
-  color: #0f172a;
-  line-height: 1.6;
-}`}</code>
-            </pre>
-
-            <div className="callout tip">
-              Traducción mental: “A <code>todos los &lt;p&gt;</code> aplícales estos estilos”.
-            </div>
-          </div>
-        </details>
-
-        <details className="dd">
-          <summary>2) ¿Por qué hacen falta?</summary>
-          <div className="dd-body">
-            <p>
-              En una página hay <strong>muchos</strong> elementos. El selector decide con precisión:
-            </p>
-            <ul>
-              <li>si afecta a <strong>todos</strong> (ej: <code>p</code>)</li>
-              <li>si afecta a un <strong>grupo</strong> (ej: <code>.card</code>)</li>
-              <li>si afecta a un elemento <strong>concreto</strong> (ej: <code>#cabecera</code>)</li>
-              <li>si afecta por <strong>posición</strong> (ej: <code>.menu a</code>)</li>
-            </ul>
-
-            <div className="callout">
-              CSS no “adivina” qué quieres: tú defines el objetivo con selectores.
-            </div>
-          </div>
-        </details>
-
-        <details className="dd">
-          <summary>3) ¿Cuántos hay?</summary>
-          <div className="dd-body">
-            <p>
-              Hay <strong>muchos</strong> (decenas) entre básicos, combinadores, pseudoclases, pseudoelementos
-              y selectores de atributos. Pero el 80% del tiempo dominarás con:
-              <strong> etiqueta</strong>, <strong>clase</strong>, <strong>ID</strong>,
-              <strong> descendientes</strong> y algunas <strong>pseudoclases</strong>.
-            </p>
-
-            <div className="callout tip">
-              En este tema nos centramos en los <strong>selectores básicos</strong> (lo mínimo imprescindible).
-            </div>
-          </div>
-        </details>
-      </section>
-
-      {/* =========================
-          SELECTORES BÁSICOS
-      ========================== */}
-      <section className="card">
-        <h2>Selectores básicos (los imprescindibles)</h2>
-
-        <details className="dd" open>
-          <summary>1) Selector de etiqueta (type selector)</summary>
-          <div className="dd-body">
-            <p>
-              Selecciona <strong>todas</strong> las etiquetas de un tipo: <code>p</code>, <code>h1</code>,{" "}
-              <code>ul</code>, <code>button</code>…
-            </p>
-
-            <pre>
-              <code>{`p{ 
-  color: #334155;
-}`}</code>
-            </pre>
-
-            <div className="callout warn">
-              Ojo: es muy amplio. Úsalo para estilos generales (tipografía base, márgenes coherentes, etc.).
-            </div>
-          </div>
-        </details>
-
-        <details className="dd">
-          <summary>2) Selector de clase (.)</summary>
-          <div className="dd-body">
-            <p>
-              Selecciona elementos que tengan una clase. Es el selector más usado en proyectos porque es
-              <strong> reutilizable</strong> y no “ata” el estilo a una etiqueta concreta.
-            </p>
-            <p>
-  A diferencia del <code>id</code>, un <strong>selector de clase</strong>
-  (<code>.clase</code>) <strong>sí puede repetirse</strong> tantas veces como sea
-  necesario dentro de un documento HTML. Esto permite aplicar un mismo conjunto
-  de estilos a varios contenedores que cumplen la misma función o comparten un
-  diseño común, como tarjetas, secciones o bloques de contenido. Por ejemplo,
-  varios <code>&lt;div&gt;</code> pueden tener la clase <code>card</code> para
-  mantener una apariencia coherente en toda la página. Si en alguno de esos
-  contenedores se necesita un estilo especial o una variación concreta, se puede
-  añadir una segunda clase (por ejemplo <code>card destacada</code>) o utilizar
-  un selector más específico que actúe solo sobre los elementos internos de ese
-  contenedor, combinando clases y jerarquía para ajustar el diseño sin romper la
-  reutilización del estilo base.
-</p>
-
-
-            <pre>
-              <code>{`.card-demo{
-  padding: 1rem;
-  border: 1px solid #cbd5e1;
-  border-radius: .75rem;
-}`}</code>
-            </pre>
-
-            <div className="callout tip">
-              Regla pro: si algo se repite, suele ser una <strong>clase</strong>.
-            </div>
-          </div>
-        </details>
-
-        <details className="dd">
-          <summary>3) Selector de ID (#)</summary>
-          <div className="dd-body">
-            <p>
-              Selecciona un elemento con un ID concreto. En HTML un ID debe ser<strong>único</strong>.
-            </p>
-            <p>
-  En HTML, el atributo <code>id</code> identifica a un elemento de forma
-  <strong>única</strong> dentro de la página. Esto significa que
-  <strong>no puede haber dos elementos con el mismo <code>id</code></strong>,
-  ya que navegadores, CSS, JavaScript y tecnologías de accesibilidad
-  asumen que ese identificador apunta a un solo nodo del documento.
-  Si se repite un <code>id</code>, el HTML deja de ser válido y pueden aparecer
-  comportamientos inesperados, como estilos mal aplicados o scripts que solo
-  afectan al primer elemento encontrado. Cuando varios elementos necesitan
-  compartir estilos o comportamiento, la solución correcta es usar
-  <code>class</code>, que sí puede repetirse.
-</p>
-
-
-            <pre>
-              <code>{`#hero{
-  padding: 2rem;
-}`}</code>
-            </pre>
-
-            <div className="callout warn">
-              En CSS moderno, el ID se usa poco para estilo porque tiene <strong>mucha especificidad</strong>.
-              Mejor usa clases para mantener el CSS flexible.
-            </div>
-          </div>
-        </details>
-
-        <details className="dd">
-          <summary>4) Selector universal (*)</summary>
-          <div className="dd-body">
-            <p>
-              Selecciona <strong>todo</strong>. Se usa con cuidado, por ejemplo para normalizar el box model.
-            </p>
-
-            <pre>
-              <code>{`*{
-  box-sizing: border-box;
-}`}</code>
-            </pre>
-
-            <div className="callout tip">
-              Útil como “base”, pero evita usarlo para estilos pesados (puede afectar a rendimiento y a todo).
-            </div>
-          </div>
-        </details>
-
-        <details className="dd">
-          <summary>5) Selector por agrupación (,)</summary>
-          <div className="dd-body">
-            <p>
-              Aplica el mismo bloque de estilos a varios selectores separados por coma.
-            </p>
-
-            <pre>
-              <code>{`h1, h2, h3{
-  letter-spacing: .2px;
-}`}</code>
-            </pre>
-
-            <div className="callout">
-              Sirve para evitar duplicar reglas.
-            </div>
-          </div>
-        </details>
-
-        <details className="dd">
-          <summary>6) Descendiente (espacio)</summary>
-          <div className="dd-body">
-            <p>
-              Selecciona elementos <strong>dentro</strong> de otros. Ejemplo: enlaces dentro de un menú.
-            </p>
-
-            <pre>
-              <code>{`.menu a{
-  text-decoration: none;
-}`}</code>
-            </pre>
-
-            <div className="callout tip">
-              Se lee: “Selecciona <code>a</code> que estén dentro de <code>.menu</code>”.
-            </div>
-          </div>
-        </details>
-      </section>
-
-      {/* =========================
-          RECORDATORIO: ESPECIFICIDAD
-      ========================== */}
-      <section className="card">
-        <h2>Recordatorio importante: especificidad (para que no te “mienta” el CSS)</h2>
+      <section className="doc-section" id="practica">
+        <h2>7) Práctica guiada</h2>
 
         <p>
-          Cuando varias reglas apuntan al mismo elemento, el navegador decide cuál gana usando
-          la <strong>cascada</strong> y la <strong>especificidad</strong>. Esto es clave en selectores,
-          porque a veces “escribes bien el CSS” y aun así no se aplica… y el motivo suele ser:
-          <strong> otra regla más específica</strong>.
-        </p>
-
-        <div className="callout tip">
-          Norma rápida: <strong>ID</strong> gana a <strong>clase</strong> y la <strong>clase</strong> gana a{" "}
-          <strong>etiqueta</strong>. Y si empatan, suele ganar la regla que esté <strong>más abajo</strong>
-          (la última en el CSS).
-        </div>
-
-        <details className="dd">
-          <summary>Mini-ejemplo (tres reglas, ¿cuál gana?)</summary>
-          <div className="dd-body">
-            <pre>
-              <code>{`p{ color: green; }       /* etiqueta */
-.note{ color: blue; }    /* clase */
-#intro{ color: red; }    /* ID */`}</code>
-            </pre>
-
-            <p>
-              Si el elemento tiene <code>id="intro"</code> y <code>class="note"</code>, el texto será{" "}
-              <strong>rojo</strong> porque el selector de ID es más específico.
-            </p>
-          </div>
-        </details>
-
-        <p style={{ marginTop: ".75rem" }}>
-          📌 Para repasar especificidad con ejemplos:{" "}
-          <a
-            href="https://www.w3schools.com/css/css_specificity.asp"
-            target="_blank"
-            rel="noreferrer"
-          >
-            CSS Specificity (W3Schools)
-          </a>
-        </p>
-
-        <div className="callout warn">
-          Consejo pro: evita “peleas” de especificidad. Prioriza <strong>clases</strong> y estructura tus estilos
-          para no depender de IDs ni selectores excesivamente largos.
-        </div>
-      </section>
-
-      {/* =========================
-          PRÁCTICA SIN JS
-      ========================== */}
-      <section className="card">
-        <h2>Práctica guiada</h2>
-
-        <p>
-          Copia esto en CodePen. Objetivo: entender qué selecciona cada regla y por qué.
+          Vamos a practicar en el orden correcto: primero etiqueta, clase e ID;
+          después descendiente y selector compuesto.
         </p>
 
         <details className="dd" open>
@@ -575,44 +820,126 @@ p{
         </details>
 
         <details className="dd">
-          <summary>CSS para practicar </summary>
+          <summary>CSS para practicar, paso a paso</summary>
           <div className="dd-body">
             <pre>
-              <code>{`/* 1) etiqueta */
-p{ color: #334155; }
+              <code>{`/* 1) Etiqueta: afecta a todos los párrafos */
+p{
+  color: #334155;
+}
 
-/* 2) clase */
-.note{ font-weight: 700; }
+/* 2) Clase: afecta a todos los elementos con class="note" */
+.note{
+  font-weight: 700;
+}
 
-/* 3) id (muy específico) */
-#intro{ text-transform: uppercase; }
+/* 3) ID: afecta solo al elemento con id="intro" */
+#intro{
+  text-transform: uppercase;
+}
 
-/* 4) descendiente */
-.menu a{ text-decoration: none; padding: .25rem .5rem; display: inline-block; }
+/* 4) Descendiente: enlaces dentro de .menu */
+.menu a{
+  text-decoration: none;
+  padding: .25rem .5rem;
+  display: inline-block;
+}
 
-/* 5) clase extra */
-.menu a.active{ border-bottom: 2px solid currentColor; }`}</code>
+/* 5) Selector compuesto: enlaces activos dentro del menú */
+.menu a.active{
+  border-bottom: 2px solid currentColor;
+}`}</code>
             </pre>
 
             <div className="callout tip">
-              Método: comenta una regla, recarga, observa qué cambia. Así aprendes más rápido.
+              Método correcto de aprendizaje:
+              <strong> comenta una regla, recarga, observa y explica qué ha cambiado</strong>.
             </div>
           </div>
         </details>
 
         <details className="dd">
-          <summary>Retos </summary>
+          <summary>Qué debes comprobar en esta práctica</summary>
           <div className="dd-body">
             <ol>
-              <li>Cambia el selector <code>p</code> por <code>.card-demo p</code> y observa qué párrafo cambia.</li>
-              <li>Añade una clase <code>note</code> a un enlace del menú. ¿Qué estilos se aplican y por qué?</li>
-              <li>Haz que solo el <code>h2</code> de la tarjeta tenga otro color usando una clase.</li>
-              <li>Escribe dos reglas que se contradigan y explica cuál gana (pista: especificidad o “la última regla”).</li>
-              <li>Crea un contenedor con la clase tarjeta y luego otro contenedor dentro con una clase diferente. Aplica estilos distintos a cada uno usando selectores adecuados.</li>
-              <li>Ahora crea otro contenedor con la clase tarjeta pero que la letra sea 3 px superior</li>
+              <li>Que todos los <code>p</code> cambian con el selector de etiqueta.</li>
+              <li>
+                Que la clase <code>.note</code> afecta tanto al párrafo de dentro
+                como al de fuera de la tarjeta.
+              </li>
+              <li>
+                Que el ID <code>#intro</code> solo afecta al título principal.
+              </li>
+              <li>
+                Que <code>.menu a</code> solo estiliza enlaces del menú, no cualquier
+                enlace de la página.
+              </li>
+              <li>
+                Que <code>.menu a.active</code> añade un estilo extra solo al enlace activo.
+              </li>
             </ol>
           </div>
         </details>
+
+        <details className="dd">
+          <summary>Retos de ampliación</summary>
+          <div className="dd-body">
+            <ol>
+              <li>
+                Cambia el selector <code>p</code> por <code>.card-demo p</code> y
+                explica qué párrafo deja de cambiar.
+              </li>
+              <li>
+                Añade la clase <code>note</code> a un enlace del menú. Explica qué
+                estilos recibe y por qué.
+              </li>
+              <li>
+                Haz que solo el <code>h2</code> de la tarjeta tenga otro color usando
+                una clase.
+              </li>
+              <li>
+                Escribe dos reglas que se contradigan y explica cuál gana por
+                especificidad o por orden.
+              </li>
+              <li>
+                Crea otro contenedor con clase <code>card-demo</code> y comprueba
+                cómo se reutiliza el estilo.
+              </li>
+              <li>
+                Crea una segunda clase, por ejemplo <code>card-demo grande</code>,
+                y haz que el texto sea 3px mayor que en la tarjeta normal.
+              </li>
+            </ol>
+
+            <div className="callout tip">
+              El objetivo no es solo que funcione, sino que puedas decir con claridad
+              <strong> por qué se aplica cada regla</strong>.
+            </div>
+          </div>
+        </details>
+      </section>
+
+      {/* =========================
+          CIERRE
+      ========================== */}
+      <section className="card">
+        <h2>Cierre</h2>
+        <p>
+          En esta lección no se trata de memorizar muchos selectores, sino de fijar
+          una idea estructural:
+          <strong> CSS se conecta con HTML a través de selectores</strong>.
+        </p>
+
+        <p>
+          Si entiendes bien <strong>etiqueta</strong>, <strong>clase</strong> e
+          <strong> ID</strong>, el resto ya no se estudia como una lista suelta,
+          sino como una ampliación lógica de esa base.
+        </p>
+
+        <div className="callout tip">
+          La mejor señal de que lo has entendido es esta: eres capaz de mirar un HTML
+          y decidir con criterio si te conviene usar una etiqueta, una clase o un ID.
+        </div>
       </section>
     </main>
   );

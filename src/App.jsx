@@ -19,6 +19,7 @@ import V07_DevTools_Depuracion from "./pages/V07_DevTools_Depuracion";
 import V08_Selectores_Basicos from "./pages/V08_Selectores_Basicos";
 import V09_Selectores_Avanzados from "./pages/V09_Selectores_Avanzados";
 import V10_Pseudoclases_Pseudoelementos from "./pages/V10_Pseudoclases_Pseudoelementos";
+import V10b_Pseudoclases_Funcionales from "./pages/V10b_Pseudoclases_Funcionales";
 import V11_Practica_Selectores from "./pages/V11_Practica_Selectores";
 
 // VARIABLES CSS
@@ -65,6 +66,30 @@ import V36_Accesibilidad_CSS from "./pages/V36_Accesibilidad_CSS";
 // EXTRA
 import V37_SASS_Introduccion from "./pages/V37_SASS_Introduccion";
 import V38_Bootstrap_Introduccion from "./pages/V38_Bootstrap_Introduccion";
+import V39_Tailwind_Introduccion from "./pages/V39_Tailwind_Introduccion";
+
+// EJERCICIOS
+import EjerciciosLanding from "./pages/EjerciciosLanding";
+import E01_Tarjeta_Perfil from "./pages/E01_Tarjeta_Perfil";
+import E02_Tipografia from "./pages/E02_Tipografia";
+import E03_Menu_Hover from "./pages/E03_Menu_Hover";
+import E04_Botones from "./pages/E04_Botones";
+import E05_Variables_CSS from "./pages/E05_Variables_CSS";
+import E06_Flexbox_Centra from "./pages/E06_Flexbox_Centra";
+import E07_Galeria_Flex from "./pages/E07_Galeria_Flex";
+import E08_Formulario from "./pages/E08_Formulario";
+import E09_Grid_Galeria from "./pages/E09_Grid_Galeria";
+import E10_Grid_Layout from "./pages/E10_Grid_Layout";
+import E11_Bootstrap_Grid from "./pages/E11_Bootstrap_Grid";
+import E12_Bootstrap_Navbar from "./pages/E12_Bootstrap_Navbar";
+import E13_Bootstrap_Cards from "./pages/E13_Bootstrap_Cards";
+import E14_Bootstrap_Forms from "./pages/E14_Bootstrap_Forms";
+import E15_Bootstrap_Landing from "./pages/E15_Bootstrap_Landing";
+import E16_Grid_Areas from "./pages/E16_Grid_Areas";
+import E17_Responsive_MobileFirst from "./pages/E17_Responsive_MobileFirst";
+import E18_Tailwind_Hero from "./pages/E18_Tailwind_Hero";
+import E19_Tailwind_Grid from "./pages/E19_Tailwind_Grid";
+import E20_Portfolio_Final from "./pages/E20_Portfolio_Final";
 
 export default function App() {
   return (
@@ -88,6 +113,7 @@ export default function App() {
         <Route path="css-selectores-basicos" element={<V08_Selectores_Basicos />} />
         <Route path="css-selectores-avanzados" element={<V09_Selectores_Avanzados />} />
         <Route path="css-pseudoclases" element={<V10_Pseudoclases_Pseudoelementos />} />
+        <Route path="css-pseudoclases-funcionales" element={<V10b_Pseudoclases_Funcionales />} />
         <Route path="css-practica-selectores" element={<V11_Practica_Selectores />} />
 
         {/* VARIABLES */}
@@ -135,6 +161,30 @@ export default function App() {
         {/* EXTRA */}
         <Route path="css-sass" element={<V37_SASS_Introduccion />} />
         <Route path="css-bootstrap" element={<V38_Bootstrap_Introduccion />} />
+        <Route path="css-tailwind" element={<V39_Tailwind_Introduccion />} />
+
+        {/* EJERCICIOS */}
+        <Route path="ejercicios" element={<EjerciciosLanding />} />
+        <Route path="ejercicios/e01-tarjeta-perfil" element={<E01_Tarjeta_Perfil />} />
+        <Route path="ejercicios/e02-tipografia" element={<E02_Tipografia />} />
+        <Route path="ejercicios/e03-menu-hover" element={<E03_Menu_Hover />} />
+        <Route path="ejercicios/e04-botones" element={<E04_Botones />} />
+        <Route path="ejercicios/e05-variables-css" element={<E05_Variables_CSS />} />
+        <Route path="ejercicios/e06-flexbox-basico" element={<E06_Flexbox_Centra />} />
+        <Route path="ejercicios/e07-galeria-flex" element={<E07_Galeria_Flex />} />
+        <Route path="ejercicios/e08-formulario" element={<E08_Formulario />} />
+        <Route path="ejercicios/e09-grid-galeria" element={<E09_Grid_Galeria />} />
+        <Route path="ejercicios/e10-grid-layout" element={<E10_Grid_Layout />} />
+        <Route path="ejercicios/e11-bootstrap-grid" element={<E11_Bootstrap_Grid />} />
+        <Route path="ejercicios/e12-bootstrap-navbar" element={<E12_Bootstrap_Navbar />} />
+        <Route path="ejercicios/e13-bootstrap-cards" element={<E13_Bootstrap_Cards />} />
+        <Route path="ejercicios/e14-bootstrap-forms" element={<E14_Bootstrap_Forms />} />
+        <Route path="ejercicios/e15-bootstrap-landing" element={<E15_Bootstrap_Landing />} />
+        <Route path="ejercicios/e16-grid-areas" element={<E16_Grid_Areas />} />
+        <Route path="ejercicios/e17-responsive-mobile-first" element={<E17_Responsive_MobileFirst />} />
+        <Route path="ejercicios/e18-tailwind-hero" element={<E18_Tailwind_Hero />} />
+        <Route path="ejercicios/e19-tailwind-grid" element={<E19_Tailwind_Grid />} />
+        <Route path="ejercicios/e20-portfolio-final" element={<E20_Portfolio_Final />} />
 
         {/* FALLBACK */}
         <Route path="*" element={<Navigate to="/" replace />} />

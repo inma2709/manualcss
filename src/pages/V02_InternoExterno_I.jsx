@@ -302,7 +302,7 @@ h1 {
 
         <div style={{ display: "flex", gap: "1rem", flexWrap: "wrap" }}>
           <Link to="/css-interno-externo-2" className="btn btn-primary">
-            Continuar con CSS interno / externo (II)
+            Continuar tema siguiente (II)
           </Link>
           
         </div>

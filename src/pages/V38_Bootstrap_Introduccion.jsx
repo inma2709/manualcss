@@ -133,15 +133,14 @@ export default function E02_Bootstrap_Pro() {
           sin caer en “Frankenstein CSS”.
         </div>
 
-        <div className="callout warn">
-          Bootstrap no es “para vagos”: es para equipos que valoran{" "}
-          <strong>consistencia</strong>, <strong>velocidad</strong> y <strong>mantenibilidad</strong>.
-          Mal usado, genera interfaces genéricas o difíciles de personalizar.
-        </div>
+       
+
+       
 
         <nav className="doc-index" aria-label="Índice de Bootstrap">
           <h2>🧭 Índice</h2>
           <ol>
+            <li><a href="#intro-bootstrap">0) Introducción: qué es, los 3 pilares y cómo instalarlo</a></li>
             <li><a href="#que-es">1) Qué es Bootstrap y cuándo conviene</a></li>
             <li><a href="#instalacion">2) Cómo integrarlo (CDN, npm, bundlers)</a></li>
             <li><a href="#filosofia">3) Filosofía: mobile-first, utilities y componentes</a></li>
@@ -161,6 +160,116 @@ export default function E02_Bootstrap_Pro() {
           </ol>
         </nav>
       </header>
+
+      {/* ================= BLOQUE INTRODUCTORIO ================= */}
+      <section className="doc-section" id="intro-bootstrap">
+        <h2>¿Qué es Bootstrap y cómo se usa?</h2>
+
+        <p>
+          <strong>Bootstrap</strong> es el framework CSS más popular del mundo. Creado por Twitter
+          en 2011, ofrece un conjunto de estilos, utilidades y componentes listos para usar que
+          permiten construir interfaces web <strong>consistentes y responsivas</strong> sin escribir
+          CSS desde cero.
+        </p>
+
+        <p>
+          Se basa en tres pilares fundamentales:
+        </p>
+
+        <ul>
+          <li>
+            <strong>Sistema de Grid</strong>: layout de 12 columnas con breakpoints responsivos
+            (xs, sm, md, lg, xl, xxl).
+          </li>
+          <li>
+            <strong>Utilidades</strong>: clases de una sola responsabilidad para espaciado,
+            colores, flexbox, tipografía… (<code>m-3</code>, <code>d-flex</code>,
+            <code>text-center</code>…).
+          </li>
+          <li>
+            <strong>Componentes</strong>: piezas de UI preconstruidas: navbar, card, modal,
+            alert, button, form, tooltip…
+          </li>
+        </ul>
+
+        <div className="callout tip">
+          <strong>Bootstrap 5</strong> (versión actual) eliminó la dependencia de jQuery.
+          Funciona con JavaScript nativo del navegador.
+        </div>
+
+        {/* --- Instalación --- */}
+        <h3 style={{ marginTop: "1.5rem" }}>¿Cómo se instala / importa?</h3>
+
+        <p>Tienes dos formas principales:</p>
+
+        <h4>Opción A — CDN (ideal para aprender y hacer demos rápidas)</h4>
+        <p>
+          Son <strong>exactamente dos líneas</strong> que añades a tu HTML:
+        </p>
+        <pre>
+          <code>{`<!-- LÍNEA 1: CSS → dentro del <head> -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css">
+
+<!-- LÍNEA 2: JS → justo antes de cerrar </body> -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>`}</code>
+        </pre>
+
+        <p>Y ya está. En contexto dentro de un HTML completo quedaría así:</p>
+        <pre>
+          <code>{`<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">  <!-- obligatorio para responsive -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css">
+</head>
+<body>
+
+  <!-- Tu contenido aquí -->
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>`}</code>
+        </pre>
+
+        <div className="callout warn">
+          El <code>&lt;meta name="viewport"&gt;</code> es <strong>obligatorio</strong>:
+          sin él el responsive no funciona correctamente en móviles.
+        </div>
+
+        <div className="callout">
+          <strong>¿Qué es Popper?</strong> Es una librería externa que Bootstrap usa
+          internamente para calcular la <strong>posición</strong> de elementos flotantes:
+          dropdowns, tooltips y popovers. Sin ella esos componentes no saben dónde
+          situarse en pantalla. El archivo <code>bootstrap.bundle.min.js</code> ya
+          la lleva dentro (de ahí el nombre <em>bundle</em>), así que no tienes que
+          importarla por separado.
+        </div>
+
+        <h4>Opción B — npm + bundler (proyectos reales con Vite, Webpack…)</h4>
+        <p>Instala el paquete y luego impórtalo en tu punto de entrada:</p>
+        <pre>
+          <code>{`# 1. Instalar
+npm install bootstrap
+
+# 2. En tu archivo de entrada (main.js / main.jsx / index.js)
+import "bootstrap/dist/css/bootstrap.min.css";
+import "bootstrap/dist/js/bootstrap.bundle.min.js";`}</code>
+        </pre>
+
+        <div className="callout tip">
+          Con Vite puedes también importar el Sass fuente de Bootstrap para personalizarlo
+          con variables:{" "}
+          <code>import "bootstrap/scss/bootstrap.scss"</code> (requiere{" "}
+          <code>npm install sass</code>).
+        </div>
+
+        <div className="callout">
+          <strong>Regla de oro:</strong> el CSS siempre debe cargarse <em>antes</em> que tu
+          propio CSS para que puedas sobrescribir estilos de Bootstrap sin problemas de
+          especificidad.
+        </div>
+      </section>
 
       {/* ================= 1) QUÉ ES ================= */}
       <section className="doc-section" id="que-es">
@@ -292,6 +401,68 @@ import "bootstrap/dist/js/bootstrap.bundle.min.js";`}</code>
                 <li><code>-sm</code>, <code>-md</code>, <code>-lg</code>… “mejoran” desde ese tamaño hacia arriba.</li>
               </ul>
             </div>
+
+            <details className="dd dd-nested" open>
+              <summary>📐 Tabla de breakpoints de Bootstrap 5 (referencia esencial)</summary>
+              <div className="dd-body">
+                <p>Bootstrap define <strong>6 breakpoints</strong>. Memorizarlos te ahorrará consultar la documentación constantemente:</p>
+                <div className="table-wrap" role="region" aria-label="Breakpoints de Bootstrap 5" tabIndex={0}>
+                  <table className="table">
+                    <thead>
+                      <tr>
+                        <th>Nombre</th>
+                        <th>Prefijo de clase</th>
+                        <th>Ancho mínimo</th>
+                        <th>Uso típico</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td>Extra small</td>
+                        <td><code>col-</code> (sin prefijo)</td>
+                        <td>&lt; 576 px</td>
+                        <td>Mobile muy pequeño (por defecto)</td>
+                      </tr>
+                      <tr>
+                        <td>Small</td>
+                        <td><code>col-sm-</code></td>
+                        <td>≥ 576 px</td>
+                        <td>Mobile normal (≥ iPhone SE)</td>
+                      </tr>
+                      <tr>
+                        <td>Medium</td>
+                        <td><code>col-md-</code></td>
+                        <td>≥ 768 px</td>
+                        <td>Tablet</td>
+                      </tr>
+                      <tr>
+                        <td>Large</td>
+                        <td><code>col-lg-</code></td>
+                        <td>≥ 992 px</td>
+                        <td>Desktop pequeño / laptop</td>
+                      </tr>
+                      <tr>
+                        <td>Extra large</td>
+                        <td><code>col-xl-</code></td>
+                        <td>≥ 1200 px</td>
+                        <td>Desktop normal</td>
+                      </tr>
+                      <tr>
+                        <td>Extra extra large</td>
+                        <td><code>col-xxl-</code></td>
+                        <td>≥ 1400 px</td>
+                        <td>Pantallas grandes / TV</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+                <div className="callout tip">
+                  Los mismos prefijos sirven para <strong>todas las utilities responsive</strong>:
+                  <code>d-md-none</code>, <code>text-lg-start</code>, <code>p-xl-5</code>…
+                  El patrón es siempre: <em>propiedad-breakpoint-valor</em>.
+                </div>
+              </div>
+            </details>
           </div>
         </details>
       </section>
@@ -310,22 +481,42 @@ import "bootstrap/dist/js/bootstrap.bundle.min.js";`}</code>
             <details className="dd dd-nested" open>
               <summary>4.1 Ejemplo mínimo: 1 columna en móvil, 2 en md</summary>
               <div className="dd-body">
+                <p>
+                  La estructura siempre sigue este orden estricto:
+                  <code>container</code> → <code>row</code> → <code>col</code>.
+                  Si saltas un nivel el grid no funciona bien.
+                </p>
                 <pre>
-                  <code>{`<div class="container">
+                  <code>{`<!-- 1. container: centra el contenido y añade padding lateral -->
+<div class="container">
+
+  <!-- 2. row: crea la fila y gestiona el espacio entre columnas -->
+  <!--    g-3 = gap de 1rem (escala del 0 al 5) entre cols y filas -->
   <div class="row g-3">
+
+    <!-- 3. col: col-12 → ocupa 12/12 = 100% en móvil (se apila) -->
+    <!--         col-md-6 → desde 768px ocupa 6/12 = 50% (lado a lado) -->
     <div class="col-12 col-md-6">
       <div class="p-3 border rounded">Columna A</div>
     </div>
+
     <div class="col-12 col-md-6">
       <div class="p-3 border rounded">Columna B</div>
     </div>
+
   </div>
 </div>`}</code>
                 </pre>
 
                 <div className="callout tip">
-                  <code>col-12</code> en móvil apila; <code>col-md-6</code> en md reparte 50/50.
-                  <code>g-3</code> controla el <strong>gap</strong> entre columnas y filas.
+                  <strong>La matemática del grid:</strong> las columnas de una fila deben sumar 12
+                  (o menos, si quieres espacio sobrante). Ejemplos comunes:
+                  <ul style={{ marginBottom: 0 }}>
+                    <li><code>col-12</code> → 1 columna (100%)</li>
+                    <li><code>col-6 col-6</code> → 2 iguales (50% + 50%)</li>
+                    <li><code>col-4 col-4 col-4</code> → 3 iguales (33,3% cada una)</li>
+                    <li><code>col-8 col-4</code> → contenido + aside (66% + 33%)</li>
+                  </ul>
                 </div>
               </div>
             </details>
@@ -436,6 +627,44 @@ import "bootstrap/dist/js/bootstrap.bundle.min.js";`}</code>
             <div className="callout tip">
               Regla PRO: usa utilities para lo común y CSS propio para componentes reutilizables del proyecto.
             </div>
+
+            <details className="dd dd-nested">
+              <summary>💡 Ejemplo combinado: una tarjeta de producto con solo utilities</summary>
+              <div className="dd-body">
+                <p>
+                  Este ejemplo muestra cómo encadenar utilities para construir
+                  un elemento complejo <strong>sin escribir una sola línea de CSS propio</strong>:
+                </p>
+                <pre>
+                  <code>{`<!-- Tarjeta de producto solo con utilities Bootstrap -->
+<div class="d-flex flex-column gap-2 p-3 border rounded bg-white shadow-sm" style="max-width: 280px;">
+
+  <!-- Imagen placeholder -->
+  <div class="bg-light rounded d-flex align-items-center justify-content-center" style="height: 160px;">
+    <span class="text-muted fs-5">🖼️ Imagen</span>
+  </div>
+
+  <!-- Contenido -->
+  <span class="badge text-bg-success align-self-start">Nuevo</span>
+  <h3 class="h6 fw-bold mb-0">Nombre del producto</h3>
+  <p class="text-muted small mb-0">Descripción breve del artículo en venta.</p>
+
+  <!-- Precio + botón -->
+  <div class="d-flex align-items-center justify-content-between mt-auto">
+    <span class="fw-bold fs-5">29,99 €</span>
+    <button class="btn btn-primary btn-sm">Añadir</button>
+  </div>
+
+</div>`}</code>
+                </pre>
+                <div className="callout">
+                  Fíjate en el patrón: primero define la <strong>estructura</strong> con
+                  <code>d-flex</code> y luego afinas con spacing (<code>gap</code>,
+                  <code>p-3</code>), tipografía (<code>fw-bold</code>, <code>small</code>)
+                  y color (<code>text-muted</code>, <code>text-bg-success</code>).
+                </div>
+              </div>
+            </details>
           </div>
         </details>
       </section>
@@ -445,6 +674,15 @@ import "bootstrap/dist/js/bootstrap.bundle.min.js";`}</code>
         <details className="dd" open>
           <summary>6) Componentes clave (lo que más se usa)</summary>
           <div className="dd-body">
+            <p>
+              Los componentes de Bootstrap siguen siempre el mismo patrón de clases:
+              una <strong>clase base</strong> que define el tipo de componente y una
+              <strong>clase modificadora</strong> que define su variante. Por ejemplo:
+              <code>btn</code> (base) + <code>btn-primary</code> (variante de color),
+              o <code>alert</code> (base) + <code>alert-warning</code> (variante).
+              Una vez interiorices ese patrón, todos los componentes te resultan familiares.
+            </p>
+
             <details className="dd dd-nested" open>
               <summary>6.1 Buttons</summary>
               <div className="dd-body">
@@ -672,7 +910,40 @@ import "bootstrap/dist/js/bootstrap.bundle.min.js";`}</code>
             </p>
 
             <details className="dd dd-nested" open>
-              <summary>11.1 La idea: cambiar variables antes de compilar</summary>
+              <summary>11.1 CSS Custom Properties (sin Sass, funciona con CDN)</summary>
+              <div className="dd-body">
+                <p>
+                  Bootstrap 5 expone sus colores y tokens como <strong>variables CSS nativas</strong>.
+                  Esto significa que puedes personalizarlo <em>sin Sass</em>,
+                  simplemente sobreescribiendo las variables en tu CSS propio:
+                </p>
+                <pre>
+                  <code>{`/* tu-styles.css — carga DESPUÉS de bootstrap.css */
+:root {
+  --bs-primary: #16c264;           /* color primario */
+  --bs-primary-rgb: 22, 194, 100;  /* necesario para utilidades con opacidad */
+  --bs-border-radius: 14px;        /* radio de borde global */
+  --bs-font-sans-serif: 'Inter', sans-serif; /* tipografía */
+  --bs-body-bg: #f8f9fa;           /* fondo general */
+}
+
+/* También puedes sobrescribir componentes concretos: */
+.btn-primary {
+  --bs-btn-bg: #16c264;
+  --bs-btn-border-color: #16c264;
+  --bs-btn-hover-bg: #12a454;
+}`}</code>
+                </pre>
+                <div className="callout tip">
+                  <strong>¿Cuándo usar CSS variables vs Sass?</strong><br />
+                  CSS variables → cambios rápidos sin pipeline de build, ideal para aprender o CDN.<br />
+                  Sass → control total de tokens, tree-shaking, proyectos grandes en producción.
+                </div>
+              </div>
+            </details>
+
+            <details className="dd dd-nested" open>
+              <summary>11.2 La idea Sass: cambiar variables antes de compilar</summary>
               <div className="dd-body">
                 <pre>
                   <code>{`/* main.scss (concepto) */
@@ -831,6 +1102,15 @@ $border-radius: 14px;
           <summary>14) Errores típicos y depuración (nivel pro)</summary>
           <div className="dd-body">
             <ul>
+              <li>
+                <strong>“No se ve nada, Bootstrap no parece cargarse”</strong> → abre DevTools (F12 → Network).
+                Si el CSS o el JS tienen error 404, la ruta del CDN es incorrecta o el archivo local no existe.
+              </li>
+              <li>
+                <strong>“El responsive no funciona en móvil”</strong> → falta el viewport meta en el{" "}
+                <code>&lt;meta name="viewport" content="width=device-width, initial-scale=1"&gt;</code>.{" "}
+                Sin él el móvil simula el ancho de escritorio y los breakpoints no tienen efecto.
+              </li>
               <li>
                 <strong>“No funciona el navbar-toggler”</strong> → falta <code>bootstrap.bundle</code>.
               </li>
