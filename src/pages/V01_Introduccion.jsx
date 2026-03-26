@@ -51,7 +51,7 @@ export default function V01_Introduccion() {
           <li>
             ✅ Saber por qué una regla se aplica y otra no
           </li>
-          <li>✅Saber dónde empezar a buscar un fallo cuando no se aplica css como esperabas.</li>
+          <li>✅ Saber dónde empezar a buscar un fallo cuando no se aplica CSS como esperabas.</li>
           <li>
             ✅ Detectar errores de cascada y especificidad sin frustrarte
           </li>

@@ -11,10 +11,10 @@ import { useEffect, useMemo, useState } from "react";
  *
  * ✅ Listo para copiar/pegar en tu manual
  */
-export default function R03_Accesibilidad_Pro() {
+export default function V36_Accesibilidad_CSS() {
   useEffect(() => {
     document.title =
-      "R03 · Accesibilidad PRO en CSS: teclado, foco, táctil, preferencias y patrones";
+      "V36 · Accesibilidad en CSS: teclado, foco, táctil y preferencias del usuario";
   }, []);
 
   // ====== Mini test ======

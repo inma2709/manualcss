@@ -1,9 +1,23 @@
-import { useEffect } from "react";
+import { useEffect, useMemo, useState } from "react";
 
 export default function SelectoresAvanzadosCombinadoresYAtributos() {
   useEffect(() => {
     document.title = "CSS · Selectores avanzados (combinadores y atributos)";
   }, []);
+
+  const questions = useMemo(() => [
+    { id: "q1", q: "¿Qué hace el combinador hermano adyacente +?", options: ["Selecciona todos los hermanos siguientes", "Selecciona el primer hermano inmediato siguiente del mismo padre", "Selecciona todos los descendientes", "Une dos clases en un mismo selector"], correct: "Selecciona el primer hermano inmediato siguiente del mismo padre", why: "h2 + p selecciona el primer <p> que viene justo después de un <h2>, siempre que sean hermanos directos." },
+    { id: "q2", q: "¿Qué selecciona [href^='https']?", options: ["Todos los href que contienen 'https'", "Todos los enlaces cuyo href empieza por 'https'", "Solo los enlaces con href='https'", "Todos los elementos con cualquier href"], correct: "Todos los enlaces cuyo href empieza por 'https'", why: "El operador ^ en selectores de atributo significa 'empieza por'. Ideal para estilar todos los enlaces externos HTTPS." },
+    { id: "q3", q: "¿Cuál es la diferencia entre los combinadores + y ~?", options: ["Son idénticos", "+ selecciona solo el hermano inmediato; ~ selecciona todos los hermanos siguientes", "~ selecciona hermanos anteriores; + los siguientes", "+ es para ID; ~ para clases"], correct: "+ selecciona solo el hermano inmediato; ~ selecciona todos los hermanos siguientes", why: "h2 + p captura solo el primer <p> tras h2. h2 ~ p captura todos los <p> que vengan después del h2 en el mismo nivel." },
+    { id: "q4", q: "¿Qué hace [class*='btn']?", options: ["Selecciona elementos con clase exactamente 'btn'", "Selecciona elementos cuyo atributo class contiene 'btn' en cualquier posición", "Solo funciona con botones <button>", "Selecciona elementos cuya clase empieza por 'btn'"], correct: "Selecciona elementos cuyo atributo class contiene 'btn' en cualquier posición", why: "El operador * significa 'contiene'. [class*='btn'] captura btn, btn-primary, icon-btn, my-btn, etc." },
+    { id: "q5", q: "¿Para qué sirve [href$='.pdf']?", options: ["Para URL que empieza por '.pdf'", "Para cualquier atributo que contenga 'pdf'", "Para enlaces cuyo href termina en '.pdf'", "Para deshabilitar PDFs"], correct: "Para enlaces cuyo href termina en '.pdf'", why: "El operador $ significa 'termina por'. Útil para añadir un icono o estilos especiales a todos los enlaces que apuntan a archivos PDF." },
+  ], []);
+  const [answers, setAnswers] = useState({});
+  const [submitted, setSubmitted] = useState(false);
+  const score = useMemo(() => questions.filter((q) => answers[q.id] === q.correct).length, [answers, questions]);
+  const choose = (id, opt) => setAnswers((p) => ({ ...p, [id]: opt }));
+  const submit = (e) => { e.preventDefault(); setSubmitted(true); };
+  const reset = () => { setAnswers({}); setSubmitted(false); };
 
   return (
     <main className="doc" id="contenido">
@@ -863,6 +877,34 @@ input[disabled]{ opacity: .6; cursor: not-allowed; }`}</code>
           Los atributos hablan de CARACTERÍSTICAS (qué tiene). 
           ¡Es como describir a una persona por dónde vive vs cómo es!
         </div>
+      </section>
+
+      {/* MINI-TEST */}
+      <section className="card">
+        <h2>🧠 Mini-test: comprueba lo aprendido</h2>
+        <p>Responde sin mirar. Cada pregunta tiene una sola respuesta correcta.</p>
+        <form onSubmit={submit}>
+          {questions.map((q) => (
+            <div key={q.id} style={{ marginBottom: "1.5rem", padding: "1rem 1.25rem", background: submitted ? (answers[q.id] === q.correct ? "#f0fdf4" : "#fef2f2") : "#f8fafc", borderRadius: "0.5rem", border: `1px solid ${submitted ? (answers[q.id] === q.correct ? "#86efac" : "#fca5a5") : "#e2e8f0"}` }}>
+              <p style={{ fontWeight: 600, margin: "0 0 0.5rem" }}>{q.q}</p>
+              {q.options.map((opt) => (
+                <label key={opt} style={{ display: "block", cursor: submitted ? "default" : "pointer", padding: "0.25rem 0", color: submitted && opt === q.correct ? "#16a34a" : submitted && opt === answers[q.id] && opt !== q.correct ? "#dc2626" : "inherit", fontWeight: submitted && opt === q.correct ? 700 : "normal" }}>
+                  <input type="radio" name={q.id} value={opt} checked={answers[q.id] === opt} onChange={() => choose(q.id, opt)} disabled={submitted} style={{ marginRight: "0.5rem" }} />
+                  {opt}
+                </label>
+              ))}
+              {submitted && <p style={{ marginTop: "0.5rem", fontSize: "0.9em", color: "#475569", borderTop: "1px solid #e2e8f0", paddingTop: "0.5rem" }}>💡 {q.why}</p>}
+            </div>
+          ))}
+          {!submitted ? (
+            <button type="submit" className="btn btn-primary" disabled={Object.keys(answers).length < questions.length}>Comprobar respuestas</button>
+          ) : (
+            <div>
+              <p style={{ fontWeight: 700, fontSize: "1.1em", margin: "0 0 1rem" }}>{score === questions.length ? "🏆 ¡Perfecto!" : score >= Math.ceil(questions.length * 0.7) ? "✅ Muy bien" : "📚 Repasa un poco más"} — {score}/{questions.length} correctas ({Math.round((score / questions.length) * 100)}%)</p>
+              <button type="button" className="btn" onClick={reset}>Reintentar</button>
+            </div>
+          )}
+        </form>
       </section>
     </main>
   );

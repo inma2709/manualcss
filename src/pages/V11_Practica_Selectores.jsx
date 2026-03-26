@@ -1,9 +1,23 @@
-import { useEffect } from "react";
+import { useEffect, useMemo, useState } from "react";
 
 export default function PseudoelementosCSS() {
   useEffect(() => {
     document.title = "CSS · Pseudoelementos";
   }, []);
+
+  const questions = useMemo(() => [
+    { id: "q1", q: "¿Para qué se usa principalmente ::before y ::after?", options: ["Para añadir atributos HTML desde CSS", "Para añadir decoración o contenido visual sin modificar el HTML", "Para crear elementos interactivos solo con CSS", "Para seleccionar el primer y último hijo"], correct: "Para añadir decoración o contenido visual sin modificar el HTML", why: "::before y ::after generan un elemento virtual antes/después del contenido. Útiles para iconos decorativos, comillas, flechas u overlays." },
+    { id: "q2", q: "¿Qué propiedad es imprescindible en ::before y ::after?", options: ["display: block", "z-index: 1", "content (aunque sea content: '')", "position: absolute"], correct: "content (aunque sea content: '')", why: "Sin content, el pseudoelemento no existe en el DOM renderizado. Con content: '' aparece sin texto pero puede tener dimensiones y estilos." },
+    { id: "q3", q: "¿Cómo se posiciona un ::before como capa overlay sobre su padre?", options: ["Solo con display: block", "Con position: absolute en ::before y position: relative en el padre", "Con float: left en ::before", "Con top: 0 sin más ajustes"], correct: "Con position: absolute en ::before y position: relative en el padre", why: "Para que ::before cubra todo el padre: position:relative en el padre, position:absolute + inset:0 en ::before." },
+    { id: "q4", q: "¿Puede ::before ser visible sin texto en content?", options: ["No, siempre necesita texto", "Sí, con content: '' y width/height o background definidos", "Solo si tiene display: block", "Solo en Chrome"], correct: "Sí, con content: '' y width/height o background definidos", why: "content: '' es la forma estándar para pseudoelementos puramente decorativos. Con un background y dimensiones se convierten en formas visuales." },
+    { id: "q5", q: "¿Qué pseudoelemento selecciona la primera letra de un párrafo?", options: ["::first-child", "::first-letter", "::first-line", "::before"], correct: "::first-letter", why: "::first-letter selecciona el primer carácter de un bloque de texto. Muy usado en tipografía editorial para capitulares (drop caps)." },
+  ], []);
+  const [answers, setAnswers] = useState({});
+  const [submitted, setSubmitted] = useState(false);
+  const score = useMemo(() => questions.filter((q) => answers[q.id] === q.correct).length, [answers, questions]);
+  const choose = (id, opt) => setAnswers((p) => ({ ...p, [id]: opt }));
+  const submit = (e) => { e.preventDefault(); setSubmitted(true); };
+  const reset = () => { setAnswers({}); setSubmitted(false); };
 
   return (
     <main className="doc" id="contenido">
@@ -1769,6 +1783,34 @@ a:hover::after {
             te dará nuevas ideas y perspectivas sobre pseudoelementos.
           </div>
         </div>
+      </section>
+
+      {/* MINI-TEST */}
+      <section className="card">
+        <h2>🧠 Mini-test: comprueba lo aprendido</h2>
+        <p>Responde sin mirar. Cada pregunta tiene una sola respuesta correcta.</p>
+        <form onSubmit={submit}>
+          {questions.map((q) => (
+            <div key={q.id} style={{ marginBottom: "1.5rem", padding: "1rem 1.25rem", background: submitted ? (answers[q.id] === q.correct ? "#f0fdf4" : "#fef2f2") : "#f8fafc", borderRadius: "0.5rem", border: `1px solid ${submitted ? (answers[q.id] === q.correct ? "#86efac" : "#fca5a5") : "#e2e8f0"}` }}>
+              <p style={{ fontWeight: 600, margin: "0 0 0.5rem" }}>{q.q}</p>
+              {q.options.map((opt) => (
+                <label key={opt} style={{ display: "block", cursor: submitted ? "default" : "pointer", padding: "0.25rem 0", color: submitted && opt === q.correct ? "#16a34a" : submitted && opt === answers[q.id] && opt !== q.correct ? "#dc2626" : "inherit", fontWeight: submitted && opt === q.correct ? 700 : "normal" }}>
+                  <input type="radio" name={q.id} value={opt} checked={answers[q.id] === opt} onChange={() => choose(q.id, opt)} disabled={submitted} style={{ marginRight: "0.5rem" }} />
+                  {opt}
+                </label>
+              ))}
+              {submitted && <p style={{ marginTop: "0.5rem", fontSize: "0.9em", color: "#475569", borderTop: "1px solid #e2e8f0", paddingTop: "0.5rem" }}>💡 {q.why}</p>}
+            </div>
+          ))}
+          {!submitted ? (
+            <button type="submit" className="btn btn-primary" disabled={Object.keys(answers).length < questions.length}>Comprobar respuestas</button>
+          ) : (
+            <div>
+              <p style={{ fontWeight: 700, fontSize: "1.1em", margin: "0 0 1rem" }}>{score === questions.length ? "🏆 ¡Perfecto!" : score >= Math.ceil(questions.length * 0.7) ? "✅ Muy bien" : "📚 Repasa un poco más"} — {score}/{questions.length} correctas ({Math.round((score / questions.length) * 100)}%)</p>
+              <button type="button" className="btn" onClick={reset}>Reintentar</button>
+            </div>
+          )}
+        </form>
       </section>
     </main>
   );

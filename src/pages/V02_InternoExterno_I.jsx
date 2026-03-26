@@ -1,6 +1,21 @@
 import { Link } from "react-router-dom";
+import { useMemo, useState } from "react";
 
 export default function V02_InternoExterno_I() {
+  const questions = useMemo(() => [
+    { id: "q1", q: "¿Cuáles son las tres formas de aplicar CSS en HTML?", options: ["Externo, interno e inline", "Archivo, función y clase", "Bootstrap, Tailwind y CSS puro", "inline-block, block e inline"], correct: "Externo, interno e inline", why: "CSS puede incluirse mediante un archivo .css externo (link), una etiqueta <style> interna o el atributo style directamente en el elemento HTML." },
+    { id: "q2", q: "¿Cuál es la ventaja principal del CSS externo?", options: ["Se carga más rápido que el inline", "Se puede reutilizar en varios HTML con un solo archivo", "Tiene mayor especificidad que el interno", "El navegador lo ignora si hay errores"], correct: "Se puede reutilizar en varios HTML con un solo archivo", why: "Un archivo .css externo se enlaza desde múltiples páginas. Un solo cambio en el archivo CSS se refleja en todo el sitio." },
+    { id: "q3", q: "¿Cómo se enlaza correctamente una hoja de estilo externa?", options: ["<style src='estilos.css'>", "<link rel='stylesheet' href='estilos.css'>", "<css file='estilos.css'>", "<import url='estilos.css'>"], correct: "<link rel='stylesheet' href='estilos.css'>", why: "El elemento <link> con rel='stylesheet' y href apuntando al archivo es la forma estándar de enlazar CSS externo en el <head>." },
+    { id: "q4", q: "Si el mismo color está definido en CSS externo y como style inline, ¿cuál prevalece?", options: ["El externo, porque se carga antes", "El inline, porque tiene mayor especificidad", "El interno (<style>), porque está dentro del HTML", "El que aparece al final del archivo"], correct: "El inline, porque tiene mayor especificidad", why: "El atributo style inline tiene especificidad (1,0,0,0), que supera a cualquier selector de clase, etiqueta o ID en archivos externos." },
+    { id: "q5", q: "¿Cuándo tiene sentido usar CSS interno (<style> en el <head>)?", options: ["En proyectos grandes con muchos archivos", "Solo en frameworks como React o Vue", "En emails HTML o páginas de una sola carga sin reutilización", "En cualquier tipo de proyecto por comodidad"], correct: "En emails HTML o páginas de una sola carga sin reutilización", why: "El CSS interno es útil cuando el HTML no puede cargar archivos externos, como en plantillas de email o páginas únicas sin mantenimiento." },
+  ], []);
+  const [answers, setAnswers] = useState({});
+  const [submitted, setSubmitted] = useState(false);
+  const score = useMemo(() => questions.filter((q) => answers[q.id] === q.correct).length, [answers, questions]);
+  const choose = (id, opt) => setAnswers((p) => ({ ...p, [id]: opt }));
+  const submit = (e) => { e.preventDefault(); setSubmitted(true); };
+  const reset = () => { setAnswers({}); setSubmitted(false); };
+
   return (
     <div className="doc">
       {/* HERO */}
@@ -283,6 +298,34 @@ h1 {
         <div className="callout">
           Aprender CSS también es aprender a tomar buenas decisiones técnicas.
         </div>
+      </section>
+
+      {/* MINI-TEST */}
+      <section className="card">
+        <h2>🧠 Mini-test: comprueba lo aprendido</h2>
+        <p>Responde sin mirar. Cada pregunta tiene una sola respuesta correcta.</p>
+        <form onSubmit={submit}>
+          {questions.map((q) => (
+            <div key={q.id} style={{ marginBottom: "1.5rem", padding: "1rem 1.25rem", background: submitted ? (answers[q.id] === q.correct ? "#f0fdf4" : "#fef2f2") : "#f8fafc", borderRadius: "0.5rem", border: `1px solid ${submitted ? (answers[q.id] === q.correct ? "#86efac" : "#fca5a5") : "#e2e8f0"}` }}>
+              <p style={{ fontWeight: 600, margin: "0 0 0.5rem" }}>{q.q}</p>
+              {q.options.map((opt) => (
+                <label key={opt} style={{ display: "block", cursor: submitted ? "default" : "pointer", padding: "0.25rem 0", color: submitted && opt === q.correct ? "#16a34a" : submitted && opt === answers[q.id] && opt !== q.correct ? "#dc2626" : "inherit", fontWeight: submitted && opt === q.correct ? 700 : "normal" }}>
+                  <input type="radio" name={q.id} value={opt} checked={answers[q.id] === opt} onChange={() => choose(q.id, opt)} disabled={submitted} style={{ marginRight: "0.5rem" }} />
+                  {opt}
+                </label>
+              ))}
+              {submitted && <p style={{ marginTop: "0.5rem", fontSize: "0.9em", color: "#475569", borderTop: "1px solid #e2e8f0", paddingTop: "0.5rem" }}>💡 {q.why}</p>}
+            </div>
+          ))}
+          {!submitted ? (
+            <button type="submit" className="btn btn-primary" disabled={Object.keys(answers).length < questions.length}>Comprobar respuestas</button>
+          ) : (
+            <div>
+              <p style={{ fontWeight: 700, fontSize: "1.1em", margin: "0 0 1rem" }}>{score === questions.length ? "🏆 ¡Perfecto!" : score >= Math.ceil(questions.length * 0.7) ? "✅ Muy bien" : "📚 Repasa un poco más"} — {score}/{questions.length} correctas ({Math.round((score / questions.length) * 100)}%)</p>
+              <button type="button" className="btn" onClick={reset}>Reintentar</button>
+            </div>
+          )}
+        </form>
       </section>
 
       {/* CIERRE */}

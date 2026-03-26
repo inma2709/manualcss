@@ -16,8 +16,8 @@ export default function Home() {
         </p>
 
         <div style={{ display: "flex", gap: "1rem", flexWrap: "wrap" }}>
-          <Link to="tema-1" className="btn btn-primary">
-            Empezar Tema 1
+          <Link to="css-introduccion" className="btn btn-primary">
+            Empezar el curso →
           </Link>
 
           <a
@@ -46,6 +46,144 @@ export default function Home() {
           desde cero hasta un nivel técnico sólido.
         </figcaption>
       </figure>
+
+      {/* ÍNDICE COMPLETO DEL CURSO */}
+      <section className="card">
+        <h2>🗺️ Índice del curso</h2>
+        <p style={{ marginBottom: "1.25rem" }}>
+          El manual cubre <strong>39 lecciones</strong> organizadas en 7 bloques
+          progresivos más un bloque de 20 ejercicios prácticos.
+          Puedes saltar a cualquier sección cuando quieras.
+        </p>
+
+        {[
+          {
+            icono: "🧱",
+            bloque: "Fundamentos",
+            lecciones: [
+              { label: "Introducción a CSS", to: "css-introduccion" },
+              { label: "CSS interno y externo", to: "css-interno-externo-1" },
+              { label: "CSS base y reset", to: "css-interno-externo-2" },
+              { label: "Cascada, herencia y especificidad ⭐", to: "css-cascada-1" },
+              { label: "Cascada II: práctica", to: "css-cascada-2" },
+              { label: "DevTools y depuración", to: "css-devtools" },
+              { label: "Variables CSS", to: "css-variables" },
+            ],
+          },
+          {
+            icono: "🎯",
+            bloque: "Selectores",
+            lecciones: [
+              { label: "Selectores básicos", to: "css-selectores-basicos" },
+              { label: "Selectores avanzados", to: "css-selectores-avanzados" },
+              { label: "Pseudoclases y pseudoelementos", to: "css-pseudoclases" },
+              { label: "Pseudoclases funcionales", to: "css-pseudoclases-funcionales" },
+              { label: "Práctica de selectores ⭐", to: "css-practica-selectores" },
+            ],
+          },
+          {
+            icono: "🍀",
+            bloque: "Aspectos visuales",
+            lecciones: [
+              { label: "Texto I", to: "css-texto-1" },
+              { label: "Texto II", to: "css-texto-2" },
+              { label: "Tipografía y legibilidad ⭐", to: "css-tipografia" },
+              { label: "Imágenes I", to: "css-imagenes-1" },
+              { label: "Imágenes II", to: "css-imagenes-2" },
+              { label: "Fondos y gradientes", to: "css-fondos" },
+            ],
+          },
+          {
+            icono: "📐",
+            bloque: "Layout",
+            lecciones: [
+              { label: "Box model y box-sizing", to: "css-box-model" },
+              { label: "Display y flujo", to: "css-display" },
+              { label: "Overflow y contención", to: "css-overflow" },
+              { label: "Flexbox I ⭐", to: "css-flexbox-1" },
+              { label: "Flexbox II: alineación", to: "css-flexbox-2" },
+              { label: "Grid I ⭐", to: "css-grid-1" },
+              { label: "Grid II: fracciones", to: "css-grid-2" },
+              { label: "Grid Areas ⭐", to: "css-grid-areas" },
+            ],
+          },
+          {
+            icono: "🧩",
+            bloque: "Componentes",
+            lecciones: [
+              { label: "Botones y vínculos", to: "css-botones-vinculos" },
+              { label: "Barra de navegación", to: "css-navbar" },
+              { label: "Tablas", to: "css-tablas" },
+              { label: "Formularios accesibles", to: "css-formularios" },
+              { label: "Modales y diálogos", to: "css-modales" },
+              { label: "Overlays y posicionamiento", to: "css-overlays" },
+              { label: "Z-index y contexto de apilado", to: "css-zindex" },
+            ],
+          },
+          {
+            icono: "📱",
+            bloque: "Responsive y accesibilidad",
+            lecciones: [
+              { label: "Media queries mobile-first ⭐", to: "css-media-queries" },
+              { label: "Layout responsive con Grid y Flex", to: "css-responsive-layout" },
+              { label: "Accesibilidad en CSS ⭐", to: "css-accesibilidad" },
+            ],
+          },
+          {
+            icono: "🚀",
+            bloque: "Extra: herramientas",
+            lecciones: [
+              { label: "SCSS / Sass: introducción", to: "css-sass" },
+              { label: "Bootstrap 5: de cero a profesional", to: "css-bootstrap" },
+              { label: "Tailwind CSS: utility-first", to: "css-tailwind" },
+            ],
+          },
+        ].map((b) => (
+          <details key={b.bloque} className="dd" open>
+            <summary>
+              {b.icono} {b.bloque}{" "}
+              <span
+                style={{
+                  fontSize: "0.75rem",
+                  fontWeight: 400,
+                  color: "var(--text-secondary, #64748b)",
+                  marginLeft: "0.5rem",
+                }}
+              >
+                {b.lecciones.length} lecciones
+              </span>
+            </summary>
+            <div className="dd-body">
+              <ol
+                style={{
+                  margin: 0,
+                  padding: "0 0 0 1.25rem",
+                  display: "grid",
+                  gridTemplateColumns: "repeat(auto-fill, minmax(240px, 1fr))",
+                  gap: "0.25rem 1.5rem",
+                }}
+              >
+                {b.lecciones.map((l) => (
+                  <li key={l.to} style={{ fontSize: "0.9rem", padding: "0.2rem 0" }}>
+                    <Link
+                      to={l.to}
+                      style={{ color: "var(--interactive-primary, #6366f1)", textDecoration: "none" }}
+                    >
+                      {l.label}
+                    </Link>
+                  </li>
+                ))}
+              </ol>
+            </div>
+          </details>
+        ))}
+
+        <div style={{ marginTop: "1rem" }}>
+          <Link to="ejercicios" className="btn btn-primary">
+            🌳 Ver los 20 ejercicios prácticos
+          </Link>
+        </div>
+      </section>
 
       {/* BIENVENIDA */}
       <section className="card">

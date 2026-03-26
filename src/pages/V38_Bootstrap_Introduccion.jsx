@@ -9,10 +9,10 @@ import { useEffect, useMemo, useState } from "react";
  * Nota: Bootstrap evoluciona; la idea del tema es sólida aunque cambien detalles menores.
  * En clase, lo importante es dominar: grid, utilities, componentes y personalización.
  */
-export default function E02_Bootstrap_Pro() {
+export default function V38_Bootstrap_Introduccion() {
   useEffect(() => {
     document.title =
-      "E02 · Bootstrap PRO: de cero a nivel profesional (grid, utilities, componentes y personalización)";
+      "V38 · Bootstrap: de cero a nivel profesional (grid, utilities, componentes y personalización)";
   }, []);
 
   // ====== Mini test ======

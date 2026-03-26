@@ -1,9 +1,23 @@
-import { useEffect } from "react";
+import { useEffect, useMemo, useState } from "react";
 
 export default function SelectoresBasicos() {
   useEffect(() => {
     document.title = "CSS · Selectores básicos";
   }, []);
+
+  const questions = useMemo(() => [
+    { id: "q1", q: "¿Cuál es la diferencia entre selector de clase y de etiqueta?", options: ["No hay diferencia", "El selector de etiqueta aplica a todos los elementos de ese tipo; el de clase solo a los que tienen esa clase", "La clase tiene más especificidad que el ID", "El selector de etiqueta va con punto"], correct: "El selector de etiqueta aplica a todos los elementos de ese tipo; el de clase solo a los que tienen esa clase", why: "p {} aplica a todos los <p>. .intro {} solo aplica a los elementos que tienen class='intro', sin importar su etiqueta." },
+    { id: "q2", q: "¿Cuándo conviene usar selector de ID en lugar de clase?", options: ["Siempre que quieras más especificidad", "Cuando el elemento es único en la página y necesita identificación puntual", "Para estilos compartidos por varios elementos", "Para cualquier elemento de lista"], correct: "Cuando el elemento es único en la página y necesita identificación puntual", why: "Los IDs son únicos por página. Para estilos reutilizables siempre se prefieren clases. El ID tiene mayor especificidad y puede causar conflictos." },
+    { id: "q3", q: "¿Qué selecciona .card .title?", options: ["El elemento que tiene a la vez clase 'card' y clase 'title'", "Cualquier elemento con clase 'title' dentro de un elemento con clase 'card'", "Solo el hijo directo con clase 'title' de .card", "Todos los .card del documento"], correct: "Cualquier elemento con clase 'title' dentro de un elemento con clase 'card'", why: "El espacio entre selectores es el combinador descendiente: selecciona .title en cualquier nivel de profundidad dentro de .card." },
+    { id: "q4", q: "¿Qué selecciona [type='text']?", options: ["Solo los <input> de tipo texto", "Todos los elementos con atributo type", "Todos los elementos cuyo atributo type sea 'text'", "Solo los <textarea>"], correct: "Todos los elementos cuyo atributo type sea 'text'", why: "Los selectores de atributo [attr='valor'] seleccionan cualquier elemento con ese atributo y ese valor exacto, no solo inputs." },
+    { id: "q5", q: "Si dos reglas CSS tienen la misma especificidad, ¿cuál prevalece?", options: ["La que aparece primero en el CSS", "La que aparece después en el CSS", "Siempre gana la clase sobre la etiqueta", "La que usa más propiedades"], correct: "La que aparece después en el CSS", why: "Cuando la especificidad es idéntica, la cascada aplica la última regla definida. El orden en el archivo importa." },
+  ], []);
+  const [answers, setAnswers] = useState({});
+  const [submitted, setSubmitted] = useState(false);
+  const score = useMemo(() => questions.filter((q) => answers[q.id] === q.correct).length, [answers, questions]);
+  const choose = (id, opt) => setAnswers((p) => ({ ...p, [id]: opt }));
+  const submit = (e) => { e.preventDefault(); setSubmitted(true); };
+  const reset = () => { setAnswers({}); setSubmitted(false); };
 
   return (
     <main className="doc" id="contenido">
@@ -940,6 +954,34 @@ p{
           La mejor señal de que lo has entendido es esta: eres capaz de mirar un HTML
           y decidir con criterio si te conviene usar una etiqueta, una clase o un ID.
         </div>
+      </section>
+
+      {/* MINI-TEST */}
+      <section className="card">
+        <h2>🧠 Mini-test: comprueba lo aprendido</h2>
+        <p>Responde sin mirar. Cada pregunta tiene una sola respuesta correcta.</p>
+        <form onSubmit={submit}>
+          {questions.map((q) => (
+            <div key={q.id} style={{ marginBottom: "1.5rem", padding: "1rem 1.25rem", background: submitted ? (answers[q.id] === q.correct ? "#f0fdf4" : "#fef2f2") : "#f8fafc", borderRadius: "0.5rem", border: `1px solid ${submitted ? (answers[q.id] === q.correct ? "#86efac" : "#fca5a5") : "#e2e8f0"}` }}>
+              <p style={{ fontWeight: 600, margin: "0 0 0.5rem" }}>{q.q}</p>
+              {q.options.map((opt) => (
+                <label key={opt} style={{ display: "block", cursor: submitted ? "default" : "pointer", padding: "0.25rem 0", color: submitted && opt === q.correct ? "#16a34a" : submitted && opt === answers[q.id] && opt !== q.correct ? "#dc2626" : "inherit", fontWeight: submitted && opt === q.correct ? 700 : "normal" }}>
+                  <input type="radio" name={q.id} value={opt} checked={answers[q.id] === opt} onChange={() => choose(q.id, opt)} disabled={submitted} style={{ marginRight: "0.5rem" }} />
+                  {opt}
+                </label>
+              ))}
+              {submitted && <p style={{ marginTop: "0.5rem", fontSize: "0.9em", color: "#475569", borderTop: "1px solid #e2e8f0", paddingTop: "0.5rem" }}>💡 {q.why}</p>}
+            </div>
+          ))}
+          {!submitted ? (
+            <button type="submit" className="btn btn-primary" disabled={Object.keys(answers).length < questions.length}>Comprobar respuestas</button>
+          ) : (
+            <div>
+              <p style={{ fontWeight: 700, fontSize: "1.1em", margin: "0 0 1rem" }}>{score === questions.length ? "🏆 ¡Perfecto!" : score >= Math.ceil(questions.length * 0.7) ? "✅ Muy bien" : "📚 Repasa un poco más"} — {score}/{questions.length} correctas ({Math.round((score / questions.length) * 100)}%)</p>
+              <button type="button" className="btn" onClick={reset}>Reintentar</button>
+            </div>
+          )}
+        </form>
       </section>
     </main>
   );

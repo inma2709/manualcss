@@ -1,9 +1,9 @@
 import { useEffect, useMemo, useState } from "react";
 
-export default function R01_MediaQueries_MobileFirst() {
+export default function V34_MediaQueries_MobileFirst() {
   useEffect(() => {
     document.title =
-      "R01 · Media Queries y Mobile-First: responsividad real (CSS nivel PRO)";
+      "V34 · Media Queries y Mobile-First: responsividad real";
   }, []);
 
   // ====== Mini test ======

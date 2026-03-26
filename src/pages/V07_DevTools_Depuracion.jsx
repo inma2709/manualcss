@@ -1,9 +1,23 @@
-import { useEffect } from "react";
+import { useEffect, useMemo, useState } from "react";
 
 export default function V07_TipografiaCSS() {
   useEffect(() => {
     document.title = "V07 · Tipografía en CSS: fundamentos, fuentes y sistemas tipográficos";
   }, []);
+
+  const questions = useMemo(() => [
+    { id: "q1", q: "¿Cuál es la diferencia principal entre rem y em?", options: ["rem se basa en el padre; em en el root", "rem se basa en el root (:html); em se basa en el elemento padre", "Son idénticos, solo cambia la sintaxis", "em siempre es más grande que rem"], correct: "rem se basa en el root (:html); em se basa en el elemento padre", why: "rem ('root em') toma como referencia el font-size del <html>. em toma el font-size del padre, por lo que puede acumularse en elementos anidados." },
+    { id: "q2", q: "¿Para qué se usa la regla @font-face?", options: ["Para cambiar el tamaño de fuente globalmente", "Para cargar fuentes propias alojadas en el servidor", "Para importar variables de fuente", "Para activar Google Fonts automáticamente"], correct: "Para cargar fuentes propias alojadas en el servidor", why: "@font-face permite descargar y usar fuentes custom sin depender de servicios externos como Google Fonts." },
+    { id: "q3", q: "¿Qué es un font stack (pila tipográfica)?", options: ["Una regla para ordenar tamaños de títulos", "Una lista de fuentes alternativas en orden de prioridad", "Un sistema de variables tipográficas", "El número de fuentes permitidas por página"], correct: "Una lista de fuentes alternativas en orden de prioridad", why: "font-family acepta múltiples valores separados por coma. El navegador usa la primera fuente disponible, terminando siempre con una familia genérica." },
+    { id: "q4", q: "¿Qué hace font-display: swap?", options: ["Carga la fuente antes que el CSS", "Muestra el texto con fuente del sistema mientras carga la web font", "Oculta el texto hasta que la fuente esté lista", "Intercambia fuentes aleatoriamente"], correct: "Muestra el texto con fuente del sistema mientras carga la web font", why: "swap evita el FOIT (texto invisible): el texto aparece de inmediato con una fuente del sistema y se reemplaza cuando la web font termina de cargar." },
+    { id: "q5", q: "¿Qué ventaja ofrece clamp(mín, ideal, máx) en tipografía?", options: ["Aplica la fuente solo en un rango de pantallas", "Define un tamaño fluido que escala entre un mínimo y un máximo sin media queries", "Limita el número de caracteres visibles", "Reemplaza completamente a las media queries"], correct: "Define un tamaño fluido que escala entre un mínimo y un máximo sin media queries", why: "clamp(1rem, 2.5vw, 2rem) nunca será menor de 1rem ni mayor de 2rem, escalando suavemente según el viewport." },
+  ], []);
+  const [answers, setAnswers] = useState({});
+  const [submitted, setSubmitted] = useState(false);
+  const score = useMemo(() => questions.filter((q) => answers[q.id] === q.correct).length, [answers, questions]);
+  const choose = (id, opt) => setAnswers((p) => ({ ...p, [id]: opt }));
+  const submit = (e) => { e.preventDefault(); setSubmitted(true); };
+  const reset = () => { setAnswers({}); setSubmitted(false); };
 
   return (
     <main className="doc" id="contenido">
@@ -1260,6 +1274,34 @@ h2 {
           <strong>experiencias de lectura</strong> que respeten al usuario, sean accesibles 
           y mantengan coherencia visual en cualquier dispositivo.
         </div>
+      </section>
+
+      {/* MINI-TEST */}
+      <section className="card">
+        <h2>🧠 Mini-test: comprueba lo aprendido</h2>
+        <p>Responde sin mirar. Cada pregunta tiene una sola respuesta correcta.</p>
+        <form onSubmit={submit}>
+          {questions.map((q) => (
+            <div key={q.id} style={{ marginBottom: "1.5rem", padding: "1rem 1.25rem", background: submitted ? (answers[q.id] === q.correct ? "#f0fdf4" : "#fef2f2") : "#f8fafc", borderRadius: "0.5rem", border: `1px solid ${submitted ? (answers[q.id] === q.correct ? "#86efac" : "#fca5a5") : "#e2e8f0"}` }}>
+              <p style={{ fontWeight: 600, margin: "0 0 0.5rem" }}>{q.q}</p>
+              {q.options.map((opt) => (
+                <label key={opt} style={{ display: "block", cursor: submitted ? "default" : "pointer", padding: "0.25rem 0", color: submitted && opt === q.correct ? "#16a34a" : submitted && opt === answers[q.id] && opt !== q.correct ? "#dc2626" : "inherit", fontWeight: submitted && opt === q.correct ? 700 : "normal" }}>
+                  <input type="radio" name={q.id} value={opt} checked={answers[q.id] === opt} onChange={() => choose(q.id, opt)} disabled={submitted} style={{ marginRight: "0.5rem" }} />
+                  {opt}
+                </label>
+              ))}
+              {submitted && <p style={{ marginTop: "0.5rem", fontSize: "0.9em", color: "#475569", borderTop: "1px solid #e2e8f0", paddingTop: "0.5rem" }}>💡 {q.why}</p>}
+            </div>
+          ))}
+          {!submitted ? (
+            <button type="submit" className="btn btn-primary" disabled={Object.keys(answers).length < questions.length}>Comprobar respuestas</button>
+          ) : (
+            <div>
+              <p style={{ fontWeight: 700, fontSize: "1.1em", margin: "0 0 1rem" }}>{score === questions.length ? "🏆 ¡Perfecto!" : score >= Math.ceil(questions.length * 0.7) ? "✅ Muy bien" : "📚 Repasa un poco más"} — {score}/{questions.length} correctas ({Math.round((score / questions.length) * 100)}%)</p>
+              <button type="button" className="btn" onClick={reset}>Reintentar</button>
+            </div>
+          )}
+        </form>
       </section>
     </main>
   );

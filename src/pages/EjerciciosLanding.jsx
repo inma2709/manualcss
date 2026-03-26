@@ -132,7 +132,7 @@ const NIVELES = [
         dificultad: "Intermedio",
         tecnologia: "Bootstrap 5",
         horas: "1–2h",
-        ruta: "ejercicios/e11-bootstrap-grid",
+        ruta: "/ejercicios/e11-bootstrap-grid",
       },
       {
         num: "E12",
@@ -142,7 +142,7 @@ const NIVELES = [
         dificultad: "Intermedio",
         tecnologia: "Bootstrap 5",
         horas: "2h",
-        ruta: "ejercicios/e12-bootstrap-navbar",
+        ruta: "/ejercicios/e12-bootstrap-navbar",
       },
       {
         num: "E13",
@@ -152,7 +152,7 @@ const NIVELES = [
         dificultad: "Intermedio",
         tecnologia: "Bootstrap 5",
         horas: "1–2h",
-        ruta: "ejercicios/e13-bootstrap-cards",
+        ruta: "/ejercicios/e13-bootstrap-cards",
       },
       {
         num: "E14",
@@ -162,7 +162,7 @@ const NIVELES = [
         dificultad: "Intermedio",
         tecnologia: "Bootstrap 5",
         horas: "2h",
-        ruta: "ejercicios/e14-bootstrap-forms",
+        ruta: "/ejercicios/e14-bootstrap-forms",
       },
       {
         num: "E15",
@@ -172,7 +172,7 @@ const NIVELES = [
         dificultad: "Intermedio",
         tecnologia: "Bootstrap 5",
         horas: "3–4h",
-        ruta: "ejercicios/e15-bootstrap-landing",
+        ruta: "/ejercicios/e15-bootstrap-landing",
       },
     ],
   },

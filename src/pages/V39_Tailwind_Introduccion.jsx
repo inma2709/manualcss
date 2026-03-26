@@ -12,7 +12,7 @@ import { useEffect, useMemo, useState } from "react";
 export default function V39_Tailwind_Introduccion() {
   useEffect(() => {
     document.title =
-      "E03 · Tailwind CSS: utility-first de cero a nivel profesional";
+      "V39 · Tailwind CSS: utility-first de cero a nivel profesional";
   }, []);
 
   // ====== Mini test ======

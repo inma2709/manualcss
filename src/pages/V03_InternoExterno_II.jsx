@@ -1,9 +1,23 @@
-import { useEffect } from "react";
+import { useEffect, useMemo, useState } from "react";
 
 export default function BaseCSSProyecto() {
   useEffect(() => {
     document.title = "CSS · Base del proyecto y selector universal";
   }, []);
+
+  const questions = useMemo(() => [
+    { id: "q1", q: "¿Qué problema principal resuelve un CSS reset?", options: ["Hace que el CSS cargue más rápido", "Elimina estilos por defecto del navegador que difieren entre browsers", "Añade estilos modernos automáticamente", "Corrige errores de sintaxis CSS"], correct: "Elimina estilos por defecto del navegador que difieren entre browsers", why: "Cada navegador aplica márgenes, paddings y tipografías distintos. El reset los borra para partir de cero con un diseño consistente." },
+    { id: "q2", q: "¿Qué efecto tiene box-sizing: border-box?", options: ["Muestra un borde en todos los elementos", "El padding y el borde se incluyen dentro del ancho/alto declarado", "Elimina el box model por defecto", "Desactiva el margin collapse"], correct: "El padding y el borde se incluyen dentro del ancho/alto declarado", why: "Con border-box, un div de width:200px con padding:20px sigue midiendo 200px en total, no 240px." },
+    { id: "q3", q: "¿Qué selecciona el selector universal *?", options: ["Solo los elementos directos del body", "Solo los elementos visibles en pantalla", "Todos los elementos HTML del documento", "Solo elementos sin clase ni ID"], correct: "Todos los elementos HTML del documento", why: "El selector * aplica a todos los nodos del DOM, por eso es ideal para resetear box-sizing globalmente." },
+    { id: "q4", q: "¿Cuál es la diferencia entre un CSS reset y normalize.css?", options: ["Son exactamente lo mismo", "El reset elimina todos los estilos; normalize los iguala manteniendo los útiles", "Normalize es obsoleto", "El reset es solo para imágenes"], correct: "El reset elimina todos los estilos; normalize los iguala manteniendo los útiles", why: "Un reset pone todo a cero. Normalize.css mantiene los estilos útiles y corrige inconsistencias entre navegadores sin destruirlos." },
+    { id: "q5", q: "¿Por qué aplicar box-sizing: border-box desde el inicio del proyecto?", options: ["Porque es obligatorio en HTML5", "Para que padding y border no rompan los cálculos de layout", "Para que las imágenes sean siempre responsive", "Porque lo exige Bootstrap"], correct: "Para que padding y border no rompan los cálculos de layout", why: "Los cálculos de grid, flex y anchos fijos son más predecibles cuando el padding no suma al ancho declarado." },
+  ], []);
+  const [answers, setAnswers] = useState({});
+  const [submitted, setSubmitted] = useState(false);
+  const score = useMemo(() => questions.filter((q) => answers[q.id] === q.correct).length, [answers, questions]);
+  const choose = (id, opt) => setAnswers((p) => ({ ...p, [id]: opt }));
+  const submit = (e) => { e.preventDefault(); setSubmitted(true); };
+  const reset = () => { setAnswers({}); setSubmitted(false); };
 
   return (
     <main className="doc" id="contenido">
@@ -705,7 +719,34 @@ body {
           </p>
         </div>
 
-       
+      </section>
+
+      {/* MINI-TEST */}
+      <section className="card">
+        <h2>🧠 Mini-test: comprueba lo aprendido</h2>
+        <p>Responde sin mirar. Cada pregunta tiene una sola respuesta correcta.</p>
+        <form onSubmit={submit}>
+          {questions.map((q) => (
+            <div key={q.id} style={{ marginBottom: "1.5rem", padding: "1rem 1.25rem", background: submitted ? (answers[q.id] === q.correct ? "#f0fdf4" : "#fef2f2") : "#f8fafc", borderRadius: "0.5rem", border: `1px solid ${submitted ? (answers[q.id] === q.correct ? "#86efac" : "#fca5a5") : "#e2e8f0"}` }}>
+              <p style={{ fontWeight: 600, margin: "0 0 0.5rem" }}>{q.q}</p>
+              {q.options.map((opt) => (
+                <label key={opt} style={{ display: "block", cursor: submitted ? "default" : "pointer", padding: "0.25rem 0", color: submitted && opt === q.correct ? "#16a34a" : submitted && opt === answers[q.id] && opt !== q.correct ? "#dc2626" : "inherit", fontWeight: submitted && opt === q.correct ? 700 : "normal" }}>
+                  <input type="radio" name={q.id} value={opt} checked={answers[q.id] === opt} onChange={() => choose(q.id, opt)} disabled={submitted} style={{ marginRight: "0.5rem" }} />
+                  {opt}
+                </label>
+              ))}
+              {submitted && <p style={{ marginTop: "0.5rem", fontSize: "0.9em", color: "#475569", borderTop: "1px solid #e2e8f0", paddingTop: "0.5rem" }}>💡 {q.why}</p>}
+            </div>
+          ))}
+          {!submitted ? (
+            <button type="submit" className="btn btn-primary" disabled={Object.keys(answers).length < questions.length}>Comprobar respuestas</button>
+          ) : (
+            <div>
+              <p style={{ fontWeight: 700, fontSize: "1.1em", margin: "0 0 1rem" }}>{score === questions.length ? "🏆 ¡Perfecto!" : score >= Math.ceil(questions.length * 0.7) ? "✅ Muy bien" : "📚 Repasa un poco más"} — {score}/{questions.length} correctas ({Math.round((score / questions.length) * 100)}%)</p>
+              <button type="button" className="btn" onClick={reset}>Reintentar</button>
+            </div>
+          )}
+        </form>
       </section>
     </main>
   );

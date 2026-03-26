@@ -43,8 +43,10 @@ export default function TopNav() {
           <div className="topnav-submenu" role="menu" aria-label="Submenú Fundamentos">
             <NavLink to="css-introduccion" className={subLinkClass}>Introducción</NavLink>
             <NavLink to="css-interno-externo-1" className={subLinkClass}>CSS interno / externo</NavLink>
-            <NavLink to="css-interno-externo-2" className={subLinkClass}>Css base (reset general)</NavLink>
+            <NavLink to="css-interno-externo-2" className={subLinkClass}>CSS base (reset general)</NavLink>
             <NavLink to="css-cascada-1" className={subLinkClass}>Cascada y especificidad ⭐</NavLink>
+            <NavLink to="css-cascada-2" className={subLinkClass}>Cascada II: práctica</NavLink>
+            <NavLink to="css-devtools" className={subLinkClass}>DevTools y depuración</NavLink>
             <NavLink to="css-variables" className={subLinkClass}>Variables CSS</NavLink>
           </div>
         </details>
@@ -59,10 +61,9 @@ export default function TopNav() {
           <div className="topnav-submenu" role="menu" aria-label="Submenú Selectores">
             <NavLink to="css-selectores-basicos" className={subLinkClass}>Básicos</NavLink>
             <NavLink to="css-selectores-avanzados" className={subLinkClass}>Avanzados</NavLink>
-            <NavLink to="css-pseudoclases" className={subLinkClass}>Pseudoclases</NavLink>
+            <NavLink to="css-pseudoclases" className={subLinkClass}>Pseudoclases y pseudoelementos</NavLink>
             <NavLink to="css-pseudoclases-funcionales" className={subLinkClass}>Pseudoclases funcionales</NavLink>
-            <NavLink to="css-practica-selectores" className={subLinkClass}>Pseudoelementos</NavLink>
-             <NavLink to="css-inline" className={subLinkClass}>Practica guiada ⭐</NavLink>
+            <NavLink to="css-practica-selectores" className={subLinkClass}>Práctica guiada ⭐</NavLink>
           </div>
         </details>
         
@@ -72,12 +73,13 @@ export default function TopNav() {
             <span className="label">Aspectos visuales</span>
           </summary>
 
-          <div className="topnav-submenu" role="menu" aria-label="Submenú Layout">
-            
-            <NavLink to="css-cascada-2" className={subLinkClass}>Color</NavLink>
-            <NavLink to="css-devtools" className={subLinkClass}>Fuentes ⭐</NavLink>
-             <NavLink to="css-zindex" className={subLinkClass}>Espacio</NavLink>
-            
+          <div className="topnav-submenu" role="menu" aria-label="Submenú Aspectos visuales">
+            <NavLink to="css-texto-1" className={subLinkClass}>Texto y tipografía I</NavLink>
+            <NavLink to="css-texto-2" className={subLinkClass}>Texto y tipografía II</NavLink>
+            <NavLink to="css-tipografia" className={subLinkClass}>Legibilidad ⭐</NavLink>
+            <NavLink to="css-fondos" className={subLinkClass}>Fondos y gradientes</NavLink>
+            <NavLink to="css-imagenes-1" className={subLinkClass}>Imágenes I</NavLink>
+            <NavLink to="css-imagenes-2" className={subLinkClass}>Imágenes II</NavLink>
           </div>
         </details>
 
@@ -89,11 +91,14 @@ export default function TopNav() {
           </summary>
 
           <div className="topnav-submenu" role="menu" aria-label="Submenú Layout">
-            
             <NavLink to="css-box-model" className={subLinkClass}>Box model</NavLink>
-            <NavLink to="css-texto-1" className={subLinkClass}>Position y Display</NavLink>
-            <NavLink to="css-flexbox-1" className={subLinkClass}>Flexbox</NavLink>
-            <NavLink to="css-grid-1" className={subLinkClass}>Grid</NavLink>
+            <NavLink to="css-display" className={subLinkClass}>Display y flujo</NavLink>
+            <NavLink to="css-overflow" className={subLinkClass}>Overflow y contención</NavLink>
+            <NavLink to="css-overlays" className={subLinkClass}>Position y z-index</NavLink>
+            <NavLink to="css-flexbox-1" className={subLinkClass}>Flexbox I ⭐</NavLink>
+            <NavLink to="css-flexbox-2" className={subLinkClass}>Flexbox II: alineación</NavLink>
+            <NavLink to="css-grid-1" className={subLinkClass}>Grid I ⭐</NavLink>
+            <NavLink to="css-grid-2" className={subLinkClass}>Grid II: fracciones</NavLink>
             <NavLink to="css-grid-areas" className={subLinkClass}>Grid Areas ⭐</NavLink>
           </div>
         </details>
